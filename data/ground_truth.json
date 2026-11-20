@@ -1,0 +1,589 @@
+{
+  "invoice_001.pdf": {
+    "case_type": "happy",
+    "vendor_name": "Northwind Office Supply LLC",
+    "invoice_number": "NWO-2001",
+    "invoice_date": "2026-09-03",
+    "due_date": "2026-10-03",
+    "po_number": "PO-1001",
+    "currency": "USD",
+    "subtotal": "42.50",
+    "tax": "3.40",
+    "total": "45.90",
+    "line_items": [
+      {
+        "description": "Copy paper, case of 10 reams",
+        "quantity": 1,
+        "unit_price": "42.50",
+        "amount": "42.50"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_002.pdf": {
+    "case_type": "happy",
+    "vendor_name": "Cloudforge Software LLC",
+    "invoice_number": "CFS-2002",
+    "invoice_date": "2026-09-05",
+    "due_date": "2026-10-05",
+    "po_number": "PO-1002",
+    "currency": "USD",
+    "subtotal": "69.00",
+    "tax": "0.00",
+    "total": "69.00",
+    "line_items": [
+      {
+        "description": "Project tracker seat, monthly",
+        "quantity": 2,
+        "unit_price": "12.00",
+        "amount": "24.00"
+      },
+      {
+        "description": "Cloud storage 1 TB, monthly",
+        "quantity": 1,
+        "unit_price": "45.00",
+        "amount": "45.00"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_003.pdf": {
+    "case_type": "happy",
+    "vendor_name": "Harbor and Pine Consulting",
+    "invoice_number": "HPC-2003",
+    "invoice_date": "2026-09-07",
+    "due_date": "2026-10-07",
+    "po_number": "PO-1003",
+    "currency": "USD",
+    "subtotal": "2250.00",
+    "tax": "0.00",
+    "total": "2250.00",
+    "line_items": [
+      {
+        "description": "Process review, hourly",
+        "quantity": 3,
+        "unit_price": "150.00",
+        "amount": "450.00"
+      },
+      {
+        "description": "Workshop facilitation, half day",
+        "quantity": 2,
+        "unit_price": "900.00",
+        "amount": "1800.00"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_004.pdf": {
+    "case_type": "happy",
+    "vendor_name": "Riverview Facilities Group",
+    "invoice_number": "RFG-2004",
+    "invoice_date": "2026-09-09",
+    "due_date": "2026-10-09",
+    "po_number": "PO-1004",
+    "currency": "USD",
+    "subtotal": "4800.00",
+    "tax": "384.00",
+    "total": "5184.00",
+    "line_items": [
+      {
+        "description": "Janitorial service, monthly",
+        "quantity": 4,
+        "unit_price": "1200.00",
+        "amount": "4800.00"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_005.pdf": {
+    "case_type": "happy",
+    "vendor_name": "Lumen and Co Marketing",
+    "invoice_number": "LCM-2005",
+    "invoice_date": "2026-09-11",
+    "due_date": "2026-10-11",
+    "po_number": "PO-1005",
+    "currency": "USD",
+    "subtotal": "2150.00",
+    "tax": "0.00",
+    "total": "2150.00",
+    "line_items": [
+      {
+        "description": "Social campaign management",
+        "quantity": 1,
+        "unit_price": "1500.00",
+        "amount": "1500.00"
+      },
+      {
+        "description": "Brochure design",
+        "quantity": 1,
+        "unit_price": "650.00",
+        "amount": "650.00"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_006.pdf": {
+    "case_type": "happy",
+    "vendor_name": "Cedar Utilities Inc",
+    "invoice_number": "CUI-2006",
+    "invoice_date": "2026-09-13",
+    "due_date": "2026-10-13",
+    "po_number": "PO-1006",
+    "currency": "USD",
+    "subtotal": "1825.10",
+    "tax": "0.00",
+    "total": "1825.10",
+    "line_items": [
+      {
+        "description": "Electricity service, monthly",
+        "quantity": 2,
+        "unit_price": "780.40",
+        "amount": "1560.80"
+      },
+      {
+        "description": "Water and sewer, monthly",
+        "quantity": 2,
+        "unit_price": "132.15",
+        "amount": "264.30"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_007.pdf": {
+    "case_type": "happy",
+    "vendor_name": "Northwind Office Supply LLC",
+    "invoice_number": "NWO-2007",
+    "invoice_date": "2026-09-15",
+    "due_date": "2026-10-15",
+    "po_number": "PO-1007",
+    "currency": "USD",
+    "subtotal": "127.50",
+    "tax": "10.20",
+    "total": "137.70",
+    "line_items": [
+      {
+        "description": "Copy paper, case of 10 reams",
+        "quantity": 3,
+        "unit_price": "42.50",
+        "amount": "127.50"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_008.pdf": {
+    "case_type": "happy",
+    "vendor_name": "Cloudforge Software LLC",
+    "invoice_number": "CFS-2008",
+    "invoice_date": "2026-09-17",
+    "due_date": "2026-10-17",
+    "po_number": "PO-1008",
+    "currency": "USD",
+    "subtotal": "93.00",
+    "tax": "0.00",
+    "total": "93.00",
+    "line_items": [
+      {
+        "description": "Project tracker seat, monthly",
+        "quantity": 4,
+        "unit_price": "12.00",
+        "amount": "48.00"
+      },
+      {
+        "description": "Cloud storage 1 TB, monthly",
+        "quantity": 1,
+        "unit_price": "45.00",
+        "amount": "45.00"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_009.pdf": {
+    "case_type": "happy",
+    "vendor_name": "Harbor and Pine Consulting",
+    "invoice_number": "HPC-2009",
+    "invoice_date": "2026-09-19",
+    "due_date": "2026-10-19",
+    "po_number": "PO-1009",
+    "currency": "USD",
+    "subtotal": "1950.00",
+    "tax": "0.00",
+    "total": "1950.00",
+    "line_items": [
+      {
+        "description": "Process review, hourly",
+        "quantity": 1,
+        "unit_price": "150.00",
+        "amount": "150.00"
+      },
+      {
+        "description": "Workshop facilitation, half day",
+        "quantity": 2,
+        "unit_price": "900.00",
+        "amount": "1800.00"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_010.pdf": {
+    "case_type": "happy",
+    "vendor_name": "Riverview Facilities Group",
+    "invoice_number": "RFG-2010",
+    "invoice_date": "2026-09-21",
+    "due_date": "2026-10-21",
+    "po_number": "PO-1010",
+    "currency": "USD",
+    "subtotal": "2400.00",
+    "tax": "192.00",
+    "total": "2592.00",
+    "line_items": [
+      {
+        "description": "Janitorial service, monthly",
+        "quantity": 2,
+        "unit_price": "1200.00",
+        "amount": "2400.00"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_011.pdf": {
+    "case_type": "happy",
+    "vendor_name": "Lumen and Co Marketing",
+    "invoice_number": "LCM-2011",
+    "invoice_date": "2026-09-23",
+    "due_date": "2026-10-23",
+    "po_number": "PO-1011",
+    "currency": "USD",
+    "subtotal": "5150.00",
+    "tax": "0.00",
+    "total": "5150.00",
+    "line_items": [
+      {
+        "description": "Social campaign management",
+        "quantity": 3,
+        "unit_price": "1500.00",
+        "amount": "4500.00"
+      },
+      {
+        "description": "Brochure design",
+        "quantity": 1,
+        "unit_price": "650.00",
+        "amount": "650.00"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_012.pdf": {
+    "case_type": "happy",
+    "vendor_name": "Cedar Utilities Inc",
+    "invoice_number": "CUI-2012",
+    "invoice_date": "2026-09-25",
+    "due_date": "2026-10-25",
+    "po_number": "PO-1012",
+    "currency": "USD",
+    "subtotal": "3385.90",
+    "tax": "0.00",
+    "total": "3385.90",
+    "line_items": [
+      {
+        "description": "Electricity service, monthly",
+        "quantity": 4,
+        "unit_price": "780.40",
+        "amount": "3121.60"
+      },
+      {
+        "description": "Water and sewer, monthly",
+        "quantity": 2,
+        "unit_price": "132.15",
+        "amount": "264.30"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_013.pdf": {
+    "case_type": "duplicate_exact",
+    "vendor_name": "Northwind Office Supply LLC",
+    "invoice_number": "NWO-2001",
+    "invoice_date": "2026-09-03",
+    "due_date": "2026-10-03",
+    "po_number": "PO-1001",
+    "currency": "USD",
+    "subtotal": "42.50",
+    "tax": "3.40",
+    "total": "45.90",
+    "line_items": [
+      {
+        "description": "Copy paper, case of 10 reams",
+        "quantity": 1,
+        "unit_price": "42.50",
+        "amount": "42.50"
+      }
+    ],
+    "duplicate_of": "invoice_001.pdf"
+  },
+  "invoice_014.pdf": {
+    "case_type": "duplicate_exact",
+    "vendor_name": "Northwind Office Supply LLC",
+    "invoice_number": "NWO-2001",
+    "invoice_date": "2026-09-03",
+    "due_date": "2026-10-03",
+    "po_number": "PO-1001",
+    "currency": "USD",
+    "subtotal": "42.50",
+    "tax": "3.40",
+    "total": "45.90",
+    "line_items": [
+      {
+        "description": "Copy paper, case of 10 reams",
+        "quantity": 1,
+        "unit_price": "42.50",
+        "amount": "42.50"
+      }
+    ],
+    "duplicate_of": "invoice_001.pdf"
+  },
+  "invoice_015.pdf": {
+    "case_type": "duplicate_soft",
+    "vendor_name": "Cloudforge Software LLC",
+    "invoice_number": "CFS-2015",
+    "invoice_date": "2026-09-07",
+    "due_date": "2026-10-07",
+    "po_number": "PO-1002",
+    "currency": "USD",
+    "subtotal": "69.00",
+    "tax": "0.00",
+    "total": "69.00",
+    "line_items": [
+      {
+        "description": "Project tracker seat, monthly",
+        "quantity": 2,
+        "unit_price": "12.00",
+        "amount": "24.00"
+      },
+      {
+        "description": "Cloud storage 1 TB, monthly",
+        "quantity": 1,
+        "unit_price": "45.00",
+        "amount": "45.00"
+      }
+    ],
+    "duplicate_of": "invoice_002.pdf"
+  },
+  "invoice_016.pdf": {
+    "case_type": "missing_po",
+    "vendor_name": "Harbor and Pine Consulting",
+    "invoice_number": "HPC-2016",
+    "invoice_date": "2026-09-27",
+    "due_date": "2026-10-27",
+    "po_number": null,
+    "currency": "USD",
+    "subtotal": "1200.00",
+    "tax": "0.00",
+    "total": "1200.00",
+    "line_items": [
+      {
+        "description": "Process review, hourly",
+        "quantity": 2,
+        "unit_price": "150.00",
+        "amount": "300.00"
+      },
+      {
+        "description": "Workshop facilitation, half day",
+        "quantity": 1,
+        "unit_price": "900.00",
+        "amount": "900.00"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_017.pdf": {
+    "case_type": "missing_po",
+    "vendor_name": "Lumen and Co Marketing",
+    "invoice_number": "LCM-2017",
+    "invoice_date": "2026-09-29",
+    "due_date": "2026-10-29",
+    "po_number": null,
+    "currency": "USD",
+    "subtotal": "3650.00",
+    "tax": "0.00",
+    "total": "3650.00",
+    "line_items": [
+      {
+        "description": "Social campaign management",
+        "quantity": 2,
+        "unit_price": "1500.00",
+        "amount": "3000.00"
+      },
+      {
+        "description": "Brochure design",
+        "quantity": 1,
+        "unit_price": "650.00",
+        "amount": "650.00"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_018.pdf": {
+    "case_type": "price_variance",
+    "vendor_name": "Northwind Office Supply LLC",
+    "invoice_number": "NWO-2018",
+    "invoice_date": "2026-10-01",
+    "due_date": "2026-10-31",
+    "po_number": "PO-1013",
+    "currency": "USD",
+    "subtotal": "238.64",
+    "tax": "19.09",
+    "total": "257.73",
+    "line_items": [
+      {
+        "description": "Copy paper, case of 10 reams",
+        "quantity": 4,
+        "unit_price": "48.88",
+        "amount": "195.52"
+      },
+      {
+        "description": "Ballpoint pens, box of 50",
+        "quantity": 2,
+        "unit_price": "21.56",
+        "amount": "43.12"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_019.pdf": {
+    "case_type": "price_variance",
+    "vendor_name": "Riverview Facilities Group",
+    "invoice_number": "RFG-2019",
+    "invoice_date": "2026-10-03",
+    "due_date": "2026-11-02",
+    "po_number": "PO-1014",
+    "currency": "USD",
+    "subtotal": "5715.50",
+    "tax": "457.24",
+    "total": "6172.74",
+    "line_items": [
+      {
+        "description": "Janitorial service, monthly",
+        "quantity": 4,
+        "unit_price": "1380.00",
+        "amount": "5520.00"
+      },
+      {
+        "description": "HVAC filter replacement",
+        "quantity": 2,
+        "unit_price": "97.75",
+        "amount": "195.50"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_020.pdf": {
+    "case_type": "qty_variance",
+    "vendor_name": "Northwind Office Supply LLC",
+    "invoice_number": "NWO-2020",
+    "invoice_date": "2026-10-05",
+    "due_date": "2026-11-04",
+    "po_number": "PO-1015",
+    "currency": "USD",
+    "subtotal": "425.00",
+    "tax": "34.00",
+    "total": "459.00",
+    "line_items": [
+      {
+        "description": "Copy paper, case of 10 reams",
+        "quantity": 10,
+        "unit_price": "42.50",
+        "amount": "425.00"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_021.pdf": {
+    "case_type": "missing_total",
+    "vendor_name": "Cloudforge Software LLC",
+    "invoice_number": "CFS-2021",
+    "invoice_date": "2026-10-07",
+    "due_date": "2026-11-06",
+    "po_number": "PO-1016",
+    "currency": "USD",
+    "subtotal": "105.00",
+    "tax": "0.00",
+    "total": null,
+    "line_items": [
+      {
+        "description": "Project tracker seat, monthly",
+        "quantity": 5,
+        "unit_price": "12.00",
+        "amount": "60.00"
+      },
+      {
+        "description": "Cloud storage 1 TB, monthly",
+        "quantity": 1,
+        "unit_price": "45.00",
+        "amount": "45.00"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_022.pdf": {
+    "case_type": "unreadable",
+    "vendor_name": null,
+    "invoice_number": null,
+    "invoice_date": null,
+    "due_date": null,
+    "po_number": null,
+    "currency": "USD",
+    "subtotal": null,
+    "tax": null,
+    "total": null,
+    "line_items": [],
+    "duplicate_of": null
+  },
+  "invoice_023.pdf": {
+    "case_type": "wrong_vendor",
+    "vendor_name": "Lumen and Co Marketing",
+    "invoice_number": "LCM-2023",
+    "invoice_date": "2026-10-11",
+    "due_date": "2026-11-10",
+    "po_number": "PO-1017",
+    "currency": "USD",
+    "subtotal": "1500.00",
+    "tax": "0.00",
+    "total": "1500.00",
+    "line_items": [
+      {
+        "description": "Social campaign management",
+        "quantity": 1,
+        "unit_price": "1500.00",
+        "amount": "1500.00"
+      }
+    ],
+    "duplicate_of": null
+  },
+  "invoice_024.pdf": {
+    "case_type": "line_math_mismatch",
+    "vendor_name": "Cedar Utilities Inc",
+    "invoice_number": "CUI-2024",
+    "invoice_date": "2026-10-13",
+    "due_date": "2026-11-12",
+    "po_number": "PO-1018",
+    "currency": "USD",
+    "subtotal": "912.55",
+    "tax": "0.00",
+    "total": "962.55",
+    "line_items": [
+      {
+        "description": "Electricity service, monthly",
+        "quantity": 1,
+        "unit_price": "780.40",
+        "amount": "780.40"
+      },
+      {
+        "description": "Water and sewer, monthly",
+        "quantity": 1,
+        "unit_price": "132.15",
+        "amount": "132.15"
+      }
+    ],
+    "duplicate_of": null
+  }
+}

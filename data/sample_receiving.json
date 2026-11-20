@@ -1,0 +1,95 @@
+[
+  {
+    "po_number": "PO-1001",
+    "received_date": "2026-09-01",
+    "packing_slip_number": "PS-5001",
+    "line_items": [
+      {
+        "description": "Copy paper, case of 10 reams",
+        "quantity_received": 1
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1003",
+    "received_date": "2026-09-05",
+    "packing_slip_number": "PS-5002",
+    "line_items": [
+      {
+        "description": "Process review, hourly",
+        "quantity_received": 3
+      },
+      {
+        "description": "Workshop facilitation, half day",
+        "quantity_received": 2
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1005",
+    "received_date": "2026-09-09",
+    "packing_slip_number": "PS-5003",
+    "line_items": [
+      {
+        "description": "Social campaign management",
+        "quantity_received": 1
+      },
+      {
+        "description": "Brochure design",
+        "quantity_received": 1
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1007",
+    "received_date": "2026-09-13",
+    "packing_slip_number": "PS-5004",
+    "line_items": [
+      {
+        "description": "Copy paper, case of 10 reams",
+        "quantity_received": 3
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1009",
+    "received_date": "2026-09-17",
+    "packing_slip_number": "PS-5005",
+    "line_items": [
+      {
+        "description": "Process review, hourly",
+        "quantity_received": 1
+      },
+      {
+        "description": "Workshop facilitation, half day",
+        "quantity_received": 2
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1011",
+    "received_date": "2026-09-21",
+    "packing_slip_number": "PS-5006",
+    "line_items": [
+      {
+        "description": "Social campaign management",
+        "quantity_received": 3
+      },
+      {
+        "description": "Brochure design",
+        "quantity_received": 1
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1015",
+    "received_date": "2026-10-05",
+    "packing_slip_number": "PS-5007",
+    "line_items": [
+      {
+        "description": "Copy paper, case of 10 reams",
+        "quantity_received": 8
+      }
+    ]
+  }
+]

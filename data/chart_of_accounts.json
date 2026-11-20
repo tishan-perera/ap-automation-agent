@@ -1,0 +1,36 @@
+{
+  "credit_account": {
+    "code": "2000",
+    "name": "Accounts Payable"
+  },
+  "expense_accounts": [
+    {
+      "code": "6100",
+      "name": "Office Supplies"
+    },
+    {
+      "code": "6200",
+      "name": "Software and Subscriptions"
+    },
+    {
+      "code": "6300",
+      "name": "Professional Services"
+    },
+    {
+      "code": "6400",
+      "name": "Facilities and Rent"
+    },
+    {
+      "code": "6500",
+      "name": "Travel and Meals"
+    },
+    {
+      "code": "6600",
+      "name": "Utilities"
+    },
+    {
+      "code": "6700",
+      "name": "Marketing"
+    }
+  ]
+}

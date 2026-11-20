@@ -1,0 +1,362 @@
+[
+  {
+    "po_number": "PO-1001",
+    "vendor_name": "Northwind Office Supply LLC",
+    "po_date": "2026-08-27",
+    "currency": "USD",
+    "status": "open",
+    "expected_total": "45.90",
+    "line_items": [
+      {
+        "description": "Copy paper, case of 10 reams",
+        "quantity": 1,
+        "unit_price": "42.50",
+        "amount": "42.50"
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1002",
+    "vendor_name": "Cloudforge Software LLC",
+    "po_date": "2026-08-29",
+    "currency": "USD",
+    "status": "open",
+    "expected_total": "69.00",
+    "line_items": [
+      {
+        "description": "Project tracker seat, monthly",
+        "quantity": 2,
+        "unit_price": "12.00",
+        "amount": "24.00"
+      },
+      {
+        "description": "Cloud storage 1 TB, monthly",
+        "quantity": 1,
+        "unit_price": "45.00",
+        "amount": "45.00"
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1003",
+    "vendor_name": "Harbor and Pine Consulting",
+    "po_date": "2026-08-31",
+    "currency": "USD",
+    "status": "open",
+    "expected_total": "2250.00",
+    "line_items": [
+      {
+        "description": "Process review, hourly",
+        "quantity": 3,
+        "unit_price": "150.00",
+        "amount": "450.00"
+      },
+      {
+        "description": "Workshop facilitation, half day",
+        "quantity": 2,
+        "unit_price": "900.00",
+        "amount": "1800.00"
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1004",
+    "vendor_name": "Riverview Facilities Group",
+    "po_date": "2026-09-02",
+    "currency": "USD",
+    "status": "open",
+    "expected_total": "5184.00",
+    "line_items": [
+      {
+        "description": "Janitorial service, monthly",
+        "quantity": 4,
+        "unit_price": "1200.00",
+        "amount": "4800.00"
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1005",
+    "vendor_name": "Lumen and Co Marketing",
+    "po_date": "2026-09-04",
+    "currency": "USD",
+    "status": "open",
+    "expected_total": "2150.00",
+    "line_items": [
+      {
+        "description": "Social campaign management",
+        "quantity": 1,
+        "unit_price": "1500.00",
+        "amount": "1500.00"
+      },
+      {
+        "description": "Brochure design",
+        "quantity": 1,
+        "unit_price": "650.00",
+        "amount": "650.00"
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1006",
+    "vendor_name": "Cedar Utilities Inc",
+    "po_date": "2026-09-06",
+    "currency": "USD",
+    "status": "open",
+    "expected_total": "1825.10",
+    "line_items": [
+      {
+        "description": "Electricity service, monthly",
+        "quantity": 2,
+        "unit_price": "780.40",
+        "amount": "1560.80"
+      },
+      {
+        "description": "Water and sewer, monthly",
+        "quantity": 2,
+        "unit_price": "132.15",
+        "amount": "264.30"
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1007",
+    "vendor_name": "Northwind Office Supply LLC",
+    "po_date": "2026-09-08",
+    "currency": "USD",
+    "status": "open",
+    "expected_total": "137.70",
+    "line_items": [
+      {
+        "description": "Copy paper, case of 10 reams",
+        "quantity": 3,
+        "unit_price": "42.50",
+        "amount": "127.50"
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1008",
+    "vendor_name": "Cloudforge Software LLC",
+    "po_date": "2026-09-10",
+    "currency": "USD",
+    "status": "open",
+    "expected_total": "93.00",
+    "line_items": [
+      {
+        "description": "Project tracker seat, monthly",
+        "quantity": 4,
+        "unit_price": "12.00",
+        "amount": "48.00"
+      },
+      {
+        "description": "Cloud storage 1 TB, monthly",
+        "quantity": 1,
+        "unit_price": "45.00",
+        "amount": "45.00"
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1009",
+    "vendor_name": "Harbor and Pine Consulting",
+    "po_date": "2026-09-12",
+    "currency": "USD",
+    "status": "open",
+    "expected_total": "1950.00",
+    "line_items": [
+      {
+        "description": "Process review, hourly",
+        "quantity": 1,
+        "unit_price": "150.00",
+        "amount": "150.00"
+      },
+      {
+        "description": "Workshop facilitation, half day",
+        "quantity": 2,
+        "unit_price": "900.00",
+        "amount": "1800.00"
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1010",
+    "vendor_name": "Riverview Facilities Group",
+    "po_date": "2026-09-14",
+    "currency": "USD",
+    "status": "open",
+    "expected_total": "2592.00",
+    "line_items": [
+      {
+        "description": "Janitorial service, monthly",
+        "quantity": 2,
+        "unit_price": "1200.00",
+        "amount": "2400.00"
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1011",
+    "vendor_name": "Lumen and Co Marketing",
+    "po_date": "2026-09-16",
+    "currency": "USD",
+    "status": "open",
+    "expected_total": "5150.00",
+    "line_items": [
+      {
+        "description": "Social campaign management",
+        "quantity": 3,
+        "unit_price": "1500.00",
+        "amount": "4500.00"
+      },
+      {
+        "description": "Brochure design",
+        "quantity": 1,
+        "unit_price": "650.00",
+        "amount": "650.00"
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1012",
+    "vendor_name": "Cedar Utilities Inc",
+    "po_date": "2026-09-18",
+    "currency": "USD",
+    "status": "open",
+    "expected_total": "3385.90",
+    "line_items": [
+      {
+        "description": "Electricity service, monthly",
+        "quantity": 4,
+        "unit_price": "780.40",
+        "amount": "3121.60"
+      },
+      {
+        "description": "Water and sewer, monthly",
+        "quantity": 2,
+        "unit_price": "132.15",
+        "amount": "264.30"
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1013",
+    "vendor_name": "Northwind Office Supply LLC",
+    "po_date": "2026-09-24",
+    "currency": "USD",
+    "status": "open",
+    "expected_total": "224.10",
+    "line_items": [
+      {
+        "description": "Copy paper, case of 10 reams",
+        "quantity": 4,
+        "unit_price": "42.50",
+        "amount": "170.00"
+      },
+      {
+        "description": "Ballpoint pens, box of 50",
+        "quantity": 2,
+        "unit_price": "18.75",
+        "amount": "37.50"
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1014",
+    "vendor_name": "Riverview Facilities Group",
+    "po_date": "2026-09-26",
+    "currency": "USD",
+    "status": "open",
+    "expected_total": "5367.60",
+    "line_items": [
+      {
+        "description": "Janitorial service, monthly",
+        "quantity": 4,
+        "unit_price": "1200.00",
+        "amount": "4800.00"
+      },
+      {
+        "description": "HVAC filter replacement",
+        "quantity": 2,
+        "unit_price": "85.00",
+        "amount": "170.00"
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1015",
+    "vendor_name": "Northwind Office Supply LLC",
+    "po_date": "2026-09-28",
+    "currency": "USD",
+    "status": "open",
+    "expected_total": "459.00",
+    "line_items": [
+      {
+        "description": "Copy paper, case of 10 reams",
+        "quantity": 10,
+        "unit_price": "42.50",
+        "amount": "425.00"
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1016",
+    "vendor_name": "Cloudforge Software LLC",
+    "po_date": "2026-09-30",
+    "currency": "USD",
+    "status": "open",
+    "expected_total": "105.00",
+    "line_items": [
+      {
+        "description": "Project tracker seat, monthly",
+        "quantity": 5,
+        "unit_price": "12.00",
+        "amount": "60.00"
+      },
+      {
+        "description": "Cloud storage 1 TB, monthly",
+        "quantity": 1,
+        "unit_price": "45.00",
+        "amount": "45.00"
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1017",
+    "vendor_name": "Harbor and Pine Consulting",
+    "po_date": "2026-10-04",
+    "currency": "USD",
+    "status": "open",
+    "expected_total": "1500.00",
+    "line_items": [
+      {
+        "description": "Social campaign management",
+        "quantity": 1,
+        "unit_price": "1500.00",
+        "amount": "1500.00"
+      }
+    ]
+  },
+  {
+    "po_number": "PO-1018",
+    "vendor_name": "Cedar Utilities Inc",
+    "po_date": "2026-10-06",
+    "currency": "USD",
+    "status": "open",
+    "expected_total": "912.55",
+    "line_items": [
+      {
+        "description": "Electricity service, monthly",
+        "quantity": 1,
+        "unit_price": "780.40",
+        "amount": "780.40"
+      },
+      {
+        "description": "Water and sewer, monthly",
+        "quantity": 1,
+        "unit_price": "132.15",
+        "amount": "132.15"
+      }
+    ]
+  }
+]
