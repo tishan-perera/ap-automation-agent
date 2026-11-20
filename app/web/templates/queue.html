@@ -1,9 +1,19 @@
 {% extends "base.html" %}
 {% block title %}Approval queue · AP Automation Agent{% endblock %}
 {% block content %}
-<div class="page-head">
-  <h1>Approval queue</h1>
-  <p class="muted">Every invoice waits for a person. Exceptions are listed so you can decide fast.</p>
+<div class="page-head row">
+  <div>
+    <h1>Approval queue</h1>
+    <p class="muted">Every invoice waits for a person. Exceptions are listed so you can decide fast.</p>
+  </div>
+  {% set approved_count = counts.get("approved", 0) %}
+  {% if approved_count %}
+    {# A POST form, not a link: exporting changes data, and browsers may prefetch links.
+       hx-boost="false" makes it a normal download so htmx does not swap the CSV into the page. #}
+    <form method="post" action="/export/csv" hx-boost="false" class="export-form">
+      <button type="submit" class="btn btn-approve">Export {{ approved_count }} approved to CSV</button>
+    </form>
+  {% endif %}
 </div>
 
 <nav class="chips" aria-label="Filter by status">

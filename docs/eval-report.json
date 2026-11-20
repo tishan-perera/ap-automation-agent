@@ -1,0 +1,873 @@
+{
+  "provider": "mock",
+  "invoice_count": 24,
+  "field_accuracy": {
+    "vendor_name": {
+      "correct": 24,
+      "total": 24,
+      "accuracy": 1.0
+    },
+    "invoice_number": {
+      "correct": 24,
+      "total": 24,
+      "accuracy": 1.0
+    },
+    "invoice_date": {
+      "correct": 24,
+      "total": 24,
+      "accuracy": 1.0
+    },
+    "total": {
+      "correct": 24,
+      "total": 24,
+      "accuracy": 1.0
+    },
+    "po_number": {
+      "correct": 24,
+      "total": 24,
+      "accuracy": 1.0
+    }
+  },
+  "refusals": {
+    "vendor_name": {
+      "correct_refusals": 1,
+      "wrong_guesses": 0,
+      "misses": 0
+    },
+    "invoice_number": {
+      "correct_refusals": 1,
+      "wrong_guesses": 0,
+      "misses": 0
+    },
+    "invoice_date": {
+      "correct_refusals": 1,
+      "wrong_guesses": 0,
+      "misses": 0
+    },
+    "total": {
+      "correct_refusals": 2,
+      "wrong_guesses": 0,
+      "misses": 0
+    },
+    "po_number": {
+      "correct_refusals": 3,
+      "wrong_guesses": 0,
+      "misses": 0
+    }
+  },
+  "by_case_type": {
+    "duplicate_exact": {
+      "invoices": 2,
+      "all_fields_correct": 2
+    },
+    "duplicate_soft": {
+      "invoices": 1,
+      "all_fields_correct": 1
+    },
+    "happy": {
+      "invoices": 12,
+      "all_fields_correct": 12
+    },
+    "line_math_mismatch": {
+      "invoices": 1,
+      "all_fields_correct": 1
+    },
+    "missing_po": {
+      "invoices": 2,
+      "all_fields_correct": 2
+    },
+    "missing_total": {
+      "invoices": 1,
+      "all_fields_correct": 1
+    },
+    "price_variance": {
+      "invoices": 2,
+      "all_fields_correct": 2
+    },
+    "qty_variance": {
+      "invoices": 1,
+      "all_fields_correct": 1
+    },
+    "unreadable": {
+      "invoices": 1,
+      "all_fields_correct": 1
+    },
+    "wrong_vendor": {
+      "invoices": 1,
+      "all_fields_correct": 1
+    }
+  },
+  "token_usage": {
+    "total_tokens": 0
+  },
+  "invoices": [
+    {
+      "filename": "invoice_001.pdf",
+      "case_type": "happy",
+      "fields": {
+        "vendor_name": {
+          "expected": "Northwind Office Supply LLC",
+          "extracted": "Northwind Office Supply LLC",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "NWO-2001",
+          "extracted": "NWO-2001",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-09-03",
+          "extracted": "2026-09-03",
+          "correct": true
+        },
+        "total": {
+          "expected": "45.90",
+          "extracted": "45.90",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1001",
+          "extracted": "PO-1001",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_002.pdf",
+      "case_type": "happy",
+      "fields": {
+        "vendor_name": {
+          "expected": "Cloudforge Software LLC",
+          "extracted": "Cloudforge Software LLC",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "CFS-2002",
+          "extracted": "CFS-2002",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-09-05",
+          "extracted": "2026-09-05",
+          "correct": true
+        },
+        "total": {
+          "expected": "69.00",
+          "extracted": "69.00",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1002",
+          "extracted": "PO-1002",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_003.pdf",
+      "case_type": "happy",
+      "fields": {
+        "vendor_name": {
+          "expected": "Harbor and Pine Consulting",
+          "extracted": "Harbor and Pine Consulting",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "HPC-2003",
+          "extracted": "HPC-2003",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-09-07",
+          "extracted": "2026-09-07",
+          "correct": true
+        },
+        "total": {
+          "expected": "2250.00",
+          "extracted": "2250.00",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1003",
+          "extracted": "PO-1003",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_004.pdf",
+      "case_type": "happy",
+      "fields": {
+        "vendor_name": {
+          "expected": "Riverview Facilities Group",
+          "extracted": "Riverview Facilities Group",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "RFG-2004",
+          "extracted": "RFG-2004",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-09-09",
+          "extracted": "2026-09-09",
+          "correct": true
+        },
+        "total": {
+          "expected": "5184.00",
+          "extracted": "5184.00",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1004",
+          "extracted": "PO-1004",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_005.pdf",
+      "case_type": "happy",
+      "fields": {
+        "vendor_name": {
+          "expected": "Lumen and Co Marketing",
+          "extracted": "Lumen and Co Marketing",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "LCM-2005",
+          "extracted": "LCM-2005",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-09-11",
+          "extracted": "2026-09-11",
+          "correct": true
+        },
+        "total": {
+          "expected": "2150.00",
+          "extracted": "2150.00",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1005",
+          "extracted": "PO-1005",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_006.pdf",
+      "case_type": "happy",
+      "fields": {
+        "vendor_name": {
+          "expected": "Cedar Utilities Inc",
+          "extracted": "Cedar Utilities Inc",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "CUI-2006",
+          "extracted": "CUI-2006",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-09-13",
+          "extracted": "2026-09-13",
+          "correct": true
+        },
+        "total": {
+          "expected": "1825.10",
+          "extracted": "1825.10",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1006",
+          "extracted": "PO-1006",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_007.pdf",
+      "case_type": "happy",
+      "fields": {
+        "vendor_name": {
+          "expected": "Northwind Office Supply LLC",
+          "extracted": "Northwind Office Supply LLC",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "NWO-2007",
+          "extracted": "NWO-2007",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-09-15",
+          "extracted": "2026-09-15",
+          "correct": true
+        },
+        "total": {
+          "expected": "137.70",
+          "extracted": "137.70",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1007",
+          "extracted": "PO-1007",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_008.pdf",
+      "case_type": "happy",
+      "fields": {
+        "vendor_name": {
+          "expected": "Cloudforge Software LLC",
+          "extracted": "Cloudforge Software LLC",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "CFS-2008",
+          "extracted": "CFS-2008",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-09-17",
+          "extracted": "2026-09-17",
+          "correct": true
+        },
+        "total": {
+          "expected": "93.00",
+          "extracted": "93.00",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1008",
+          "extracted": "PO-1008",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_009.pdf",
+      "case_type": "happy",
+      "fields": {
+        "vendor_name": {
+          "expected": "Harbor and Pine Consulting",
+          "extracted": "Harbor and Pine Consulting",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "HPC-2009",
+          "extracted": "HPC-2009",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-09-19",
+          "extracted": "2026-09-19",
+          "correct": true
+        },
+        "total": {
+          "expected": "1950.00",
+          "extracted": "1950.00",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1009",
+          "extracted": "PO-1009",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_010.pdf",
+      "case_type": "happy",
+      "fields": {
+        "vendor_name": {
+          "expected": "Riverview Facilities Group",
+          "extracted": "Riverview Facilities Group",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "RFG-2010",
+          "extracted": "RFG-2010",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-09-21",
+          "extracted": "2026-09-21",
+          "correct": true
+        },
+        "total": {
+          "expected": "2592.00",
+          "extracted": "2592.00",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1010",
+          "extracted": "PO-1010",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_011.pdf",
+      "case_type": "happy",
+      "fields": {
+        "vendor_name": {
+          "expected": "Lumen and Co Marketing",
+          "extracted": "Lumen and Co Marketing",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "LCM-2011",
+          "extracted": "LCM-2011",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-09-23",
+          "extracted": "2026-09-23",
+          "correct": true
+        },
+        "total": {
+          "expected": "5150.00",
+          "extracted": "5150.00",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1011",
+          "extracted": "PO-1011",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_012.pdf",
+      "case_type": "happy",
+      "fields": {
+        "vendor_name": {
+          "expected": "Cedar Utilities Inc",
+          "extracted": "Cedar Utilities Inc",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "CUI-2012",
+          "extracted": "CUI-2012",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-09-25",
+          "extracted": "2026-09-25",
+          "correct": true
+        },
+        "total": {
+          "expected": "3385.90",
+          "extracted": "3385.90",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1012",
+          "extracted": "PO-1012",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_013.pdf",
+      "case_type": "duplicate_exact",
+      "fields": {
+        "vendor_name": {
+          "expected": "Northwind Office Supply LLC",
+          "extracted": "Northwind Office Supply LLC",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "NWO-2001",
+          "extracted": "NWO-2001",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-09-03",
+          "extracted": "2026-09-03",
+          "correct": true
+        },
+        "total": {
+          "expected": "45.90",
+          "extracted": "45.90",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1001",
+          "extracted": "PO-1001",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_014.pdf",
+      "case_type": "duplicate_exact",
+      "fields": {
+        "vendor_name": {
+          "expected": "Northwind Office Supply LLC",
+          "extracted": "Northwind Office Supply LLC",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "NWO-2001",
+          "extracted": "NWO-2001",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-09-03",
+          "extracted": "2026-09-03",
+          "correct": true
+        },
+        "total": {
+          "expected": "45.90",
+          "extracted": "45.90",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1001",
+          "extracted": "PO-1001",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_015.pdf",
+      "case_type": "duplicate_soft",
+      "fields": {
+        "vendor_name": {
+          "expected": "Cloudforge Software LLC",
+          "extracted": "Cloudforge Software LLC",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "CFS-2015",
+          "extracted": "CFS-2015",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-09-07",
+          "extracted": "2026-09-07",
+          "correct": true
+        },
+        "total": {
+          "expected": "69.00",
+          "extracted": "69.00",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1002",
+          "extracted": "PO-1002",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_016.pdf",
+      "case_type": "missing_po",
+      "fields": {
+        "vendor_name": {
+          "expected": "Harbor and Pine Consulting",
+          "extracted": "Harbor and Pine Consulting",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "HPC-2016",
+          "extracted": "HPC-2016",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-09-27",
+          "extracted": "2026-09-27",
+          "correct": true
+        },
+        "total": {
+          "expected": "1200.00",
+          "extracted": "1200.00",
+          "correct": true
+        },
+        "po_number": {
+          "expected": null,
+          "extracted": null,
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_017.pdf",
+      "case_type": "missing_po",
+      "fields": {
+        "vendor_name": {
+          "expected": "Lumen and Co Marketing",
+          "extracted": "Lumen and Co Marketing",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "LCM-2017",
+          "extracted": "LCM-2017",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-09-29",
+          "extracted": "2026-09-29",
+          "correct": true
+        },
+        "total": {
+          "expected": "3650.00",
+          "extracted": "3650.00",
+          "correct": true
+        },
+        "po_number": {
+          "expected": null,
+          "extracted": null,
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_018.pdf",
+      "case_type": "price_variance",
+      "fields": {
+        "vendor_name": {
+          "expected": "Northwind Office Supply LLC",
+          "extracted": "Northwind Office Supply LLC",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "NWO-2018",
+          "extracted": "NWO-2018",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-10-01",
+          "extracted": "2026-10-01",
+          "correct": true
+        },
+        "total": {
+          "expected": "257.73",
+          "extracted": "257.73",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1013",
+          "extracted": "PO-1013",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_019.pdf",
+      "case_type": "price_variance",
+      "fields": {
+        "vendor_name": {
+          "expected": "Riverview Facilities Group",
+          "extracted": "Riverview Facilities Group",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "RFG-2019",
+          "extracted": "RFG-2019",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-10-03",
+          "extracted": "2026-10-03",
+          "correct": true
+        },
+        "total": {
+          "expected": "6172.74",
+          "extracted": "6172.74",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1014",
+          "extracted": "PO-1014",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_020.pdf",
+      "case_type": "qty_variance",
+      "fields": {
+        "vendor_name": {
+          "expected": "Northwind Office Supply LLC",
+          "extracted": "Northwind Office Supply LLC",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "NWO-2020",
+          "extracted": "NWO-2020",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-10-05",
+          "extracted": "2026-10-05",
+          "correct": true
+        },
+        "total": {
+          "expected": "459.00",
+          "extracted": "459.00",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1015",
+          "extracted": "PO-1015",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_021.pdf",
+      "case_type": "missing_total",
+      "fields": {
+        "vendor_name": {
+          "expected": "Cloudforge Software LLC",
+          "extracted": "Cloudforge Software LLC",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "CFS-2021",
+          "extracted": "CFS-2021",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-10-07",
+          "extracted": "2026-10-07",
+          "correct": true
+        },
+        "total": {
+          "expected": null,
+          "extracted": null,
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1016",
+          "extracted": "PO-1016",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_022.pdf",
+      "case_type": "unreadable",
+      "fields": {
+        "vendor_name": {
+          "expected": null,
+          "extracted": null,
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": null,
+          "extracted": null,
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": null,
+          "extracted": null,
+          "correct": true
+        },
+        "total": {
+          "expected": null,
+          "extracted": null,
+          "correct": true
+        },
+        "po_number": {
+          "expected": null,
+          "extracted": null,
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_023.pdf",
+      "case_type": "wrong_vendor",
+      "fields": {
+        "vendor_name": {
+          "expected": "Lumen and Co Marketing",
+          "extracted": "Lumen and Co Marketing",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "LCM-2023",
+          "extracted": "LCM-2023",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-10-11",
+          "extracted": "2026-10-11",
+          "correct": true
+        },
+        "total": {
+          "expected": "1500.00",
+          "extracted": "1500.00",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1017",
+          "extracted": "PO-1017",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    },
+    {
+      "filename": "invoice_024.pdf",
+      "case_type": "line_math_mismatch",
+      "fields": {
+        "vendor_name": {
+          "expected": "Cedar Utilities Inc",
+          "extracted": "Cedar Utilities Inc",
+          "correct": true
+        },
+        "invoice_number": {
+          "expected": "CUI-2024",
+          "extracted": "CUI-2024",
+          "correct": true
+        },
+        "invoice_date": {
+          "expected": "2026-10-13",
+          "extracted": "2026-10-13",
+          "correct": true
+        },
+        "total": {
+          "expected": "962.55",
+          "extracted": "962.55",
+          "correct": true
+        },
+        "po_number": {
+          "expected": "PO-1018",
+          "extracted": "PO-1018",
+          "correct": true
+        }
+      },
+      "tokens": 0
+    }
+  ]
+}

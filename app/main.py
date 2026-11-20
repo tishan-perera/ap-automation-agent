@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 from app.config import get_settings
 from app.db import get_engine, init_db
 from app.logging_setup import configure_logging
-from app.routers import invoices
+from app.routers import export, invoices
 from app.services.demo import bootstrap_demo
 from app.web import routes as web_routes
 
@@ -43,6 +43,7 @@ async def lifespan(_app: FastAPI):
 app = FastAPI(title="AP Automation Agent", lifespan=lifespan)
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 app.include_router(invoices.router)
+app.include_router(export.router)
 app.include_router(web_routes.router)
 
 

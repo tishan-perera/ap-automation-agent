@@ -2,10 +2,15 @@ import json
 from pathlib import Path
 
 import pytest
+from fastapi.testclient import TestClient
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.config import get_settings
-from app.db import init_db, make_engine
+from app.db import get_session, init_db, make_engine
+from app.main import app
+from app.models import AuditEvent, Invoice
+from app.services.demo import bootstrap_demo
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 
@@ -52,3 +57,37 @@ def fixture_pdf(ground_truth):
         raise LookupError(case_type)
 
     return find
+
+
+@pytest.fixture
+def client(engine):
+    def test_session():
+        with Session(engine) as db_session:
+            yield db_session
+
+    app.dependency_overrides[get_session] = test_session
+    yield TestClient(app)
+    app.dependency_overrides.clear()
+
+
+@pytest.fixture
+def loaded(engine):
+    """Seed POs and ingest every fixture PDF; return {filename: invoice id}."""
+    with Session(engine) as session:
+        bootstrap_demo(session, DATA_DIR, DATA_DIR / "invoices")
+        return {name: id_ for name, id_ in session.execute(select(Invoice.filename, Invoice.id))}
+
+
+def get_invoice(engine, invoice_id):
+    with Session(engine) as session:
+        invoice = session.get(Invoice, invoice_id)
+        session.expunge(invoice)
+        return invoice
+
+
+def audit_events(engine, invoice_id):
+    with Session(engine) as session:
+        query = select(AuditEvent).where(AuditEvent.invoice_id == invoice_id)
+        events = session.scalars(query.order_by(AuditEvent.at)).all()
+        session.expunge_all()
+        return events

@@ -81,6 +81,8 @@ h2 { font-size: 1rem; margin: 0 0 12px; color: var(--text); }
 .tag-not_applicable, .tag-none { background: #f0f1f3; color: var(--muted); }
 .status-needs_review { background: var(--warn-soft); color: var(--warn); }
 .status-approved { background: var(--ok-soft); color: var(--ok); }
+.status-exported { background: var(--accent-soft); color: var(--accent); }
+.export-form .btn { white-space: nowrap; }
 .status-rejected { background: var(--bad-soft); color: var(--bad); }
 .status-lg { font-size: 14px; padding: 4px 12px; }
 .flag { background: #f0f1f3; color: var(--text); font-family: ui-monospace, Menlo, monospace; margin: 0 6px 6px 0; }

@@ -25,6 +25,7 @@ FILTERS = {
     "needs_review": "Needs review",
     "approved": "Approved",
     "rejected": "Rejected",
+    "exported": "Exported",
     "all": "All",
 }
 NOTICES = {

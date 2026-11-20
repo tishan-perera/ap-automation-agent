@@ -1,50 +1,12 @@
 from decimal import Decimal
 
-import pytest
-from fastapi.testclient import TestClient
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.config import get_settings
-from app.db import get_session
-from app.main import app
-from app.models import AuditEvent, Invoice
+from app.models import Invoice
 from app.services.demo import bootstrap_demo
-from tests.conftest import DATA_DIR
-
-
-@pytest.fixture
-def client(engine):
-    def test_session():
-        with Session(engine) as db_session:
-            yield db_session
-
-    app.dependency_overrides[get_session] = test_session
-    yield TestClient(app)
-    app.dependency_overrides.clear()
-
-
-@pytest.fixture
-def loaded(engine):
-    """Seed POs and ingest every fixture PDF; return {filename: invoice id}."""
-    with Session(engine) as session:
-        bootstrap_demo(session, DATA_DIR, DATA_DIR / "invoices")
-        return {name: id_ for name, id_ in session.execute(select(Invoice.filename, Invoice.id))}
-
-
-def get_invoice(engine, invoice_id):
-    with Session(engine) as session:
-        invoice = session.get(Invoice, invoice_id)
-        session.expunge(invoice)
-        return invoice
-
-
-def audit_events(engine, invoice_id):
-    with Session(engine) as session:
-        query = select(AuditEvent).where(AuditEvent.invoice_id == invoice_id)
-        events = session.scalars(query.order_by(AuditEvent.at)).all()
-        session.expunge_all()
-        return events
+from tests.conftest import DATA_DIR, audit_events, get_invoice
 
 
 def is_html(response):
@@ -225,3 +187,24 @@ def test_bootstrap_fills_an_empty_database_once(engine):
     assert first == 24
     assert second == 0
     assert total == 24
+
+
+def test_queue_has_export_form_that_htmx_does_not_intercept(client, loaded):
+    client.post(f"/invoices/{loaded['invoice_001.pdf']}/approve")
+
+    html = client.get("/queue", params={"status": "approved"}).text
+
+    # Exporting changes data, so it is a POST form (never a link a browser might prefetch).
+    # hx-boost would swap the CSV into the page, so the form opts out of it.
+    assert '<form method="post" action="/export/csv" hx-boost="false"' in html
+    assert 'href="/export/csv"' not in html
+    assert "Export 1 approved" in html
+
+
+def test_exported_filter_lists_exported_invoices(client, loaded):
+    client.post(f"/invoices/{loaded['invoice_003.pdf']}/approve")  # HPC-2003 is unique
+    client.post("/export/csv")
+
+    assert "HPC-2003" in client.get("/queue", params={"status": "exported"}).text
+    assert "HPC-2003" not in client.get("/queue").text  # gone from Needs review
+    assert "No invoices" in client.get("/queue", params={"status": "approved"}).text
