@@ -5,7 +5,8 @@ from sqlalchemy import inspect
 from sqlalchemy.exc import IntegrityError
 
 from app.models import Invoice
-from app.schemas import InvoiceExtraction, LineItem, validate_extraction
+from app.schemas import InvoiceExtraction, LineItem
+from app.services.validation import validate_extraction
 
 
 def flag_codes(flags):

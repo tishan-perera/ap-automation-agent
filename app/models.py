@@ -5,7 +5,7 @@ from datetime import UTC, date, datetime
 from decimal import Decimal
 
 from sqlalchemy import JSON, Boolean, Date, DateTime, Float, ForeignKey, Numeric, String, Text
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 Money = Numeric(14, 2)
 Quantity = Numeric(14, 4)
@@ -68,6 +68,8 @@ class Invoice(Base):
     approved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     exported_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     approved_by: Mapped[str | None] = mapped_column(String(100))
+
+    line_items: Mapped[list["InvoiceLineItem"]] = relationship(cascade="all, delete-orphan")
 
 
 class InvoiceLineItem(Base):

@@ -21,6 +21,14 @@ class Settings(BaseSettings):
     anthropic_api_key: str = ""
     openai_api_key: str = ""
 
+    # Model names for the real providers (only used when that provider is selected).
+    openai_model: str = "gpt-5-mini"
+    anthropic_model: str = "claude-haiku-5-5"
+    gemini_model: str = "gemini-2.5-flash"
+    llm_timeout_seconds: float = 30.0
+
+    invoices_dir: str = "data/invoices"
+
 
 @lru_cache
 def get_settings() -> Settings:

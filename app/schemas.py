@@ -1,14 +1,13 @@
-"""Pydantic schemas for invoice extraction, plus basic deterministic checks.
+"""Pydantic schemas for invoice extraction and validation flags.
 
 Missing amounts stay None. Nothing here ever fills in a number that was not extracted.
+Validation rules live in app/services/validation.py.
 """
 
 from datetime import date
 from decimal import Decimal
 
 from pydantic import BaseModel, Field
-
-LINE_MATH_TOLERANCE = Decimal("0.01")
 
 
 class LineItem(BaseModel):
@@ -38,32 +37,24 @@ class ValidationFlag(BaseModel):
     field: str | None = None
 
 
-def validate_extraction(extraction: InvoiceExtraction) -> list[ValidationFlag]:
-    """Return flags for missing totals and line items that do not add up to the total."""
-    flags: list[ValidationFlag] = []
+class InvoiceSummary(BaseModel):
+    """API response for an ingested invoice."""
 
-    if extraction.total is None:
-        flags.append(
-            ValidationFlag(
-                code="MISSING_TOTAL",
-                message="Invoice total is missing or unreadable.",
-                field="total",
-            )
-        )
-        return flags
+    model_config = {"from_attributes": True}
 
-    amounts = [item.amount for item in extraction.line_items]
-    if amounts and all(amount is not None for amount in amounts):
-        expected = sum(amounts, Decimal(0)) + (extraction.tax or Decimal(0))
-        if abs(expected - extraction.total) > LINE_MATH_TOLERANCE:
-            flags.append(
-                ValidationFlag(
-                    code="LINE_MATH_MISMATCH",
-                    message=(
-                        f"Line items plus tax ({expected}) do not match total ({extraction.total})."
-                    ),
-                    field="total",
-                )
-            )
+    id: str
+    filename: str
+    file_hash: str
+    status: str
+    vendor_name: str | None
+    invoice_number: str | None
+    po_number: str | None
+    total: Decimal | None
+    validation_flags: list[ValidationFlag]
+    already_processed: bool = False
 
-    return flags
+
+class FixtureIngestSummary(BaseModel):
+    processed: int
+    created: int
+    invoices: list[InvoiceSummary]
