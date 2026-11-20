@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Settings · AP Automation Agent{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Settings</h1>
+  <p class="muted">Read-only in v1. Change these in your <span class="mono">.env</span> file and restart.</p>
+</div>
+
+<section class="card">
+  <h2>LLM provider</h2>
+  <p>Current provider: <span class="tag tag-matched mono">{{ provider }}</span></p>
+  <p class="muted small">The mock provider is the default and needs no API key.</p>
+</section>
+
+<section class="card">
+  <h2>API keys</h2>
+  <p class="muted small">Only whether a key is set is shown. Key values are never displayed or stored in the database.</p>
+  <table class="table compact">
+    <thead><tr><th>Provider</th><th>Key present</th></tr></thead>
+    <tbody>
+      {% for name, present in keys.items() %}
+      <tr><td>{{ name }}</td><td data-key="{{ name }}">{{ "yes" if present else "no" }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="card">
+  <h2>Matching tolerance</h2>
+  <p>Amounts match within the greater of <strong>${{ tolerance_usd }}</strong> or <strong>{{ "%g" | format(tolerance_pct * 100) }}%</strong> of the PO total.</p>
+</section>
+{% endblock %}

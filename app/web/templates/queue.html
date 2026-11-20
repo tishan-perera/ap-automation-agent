@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Approval queue · AP Automation Agent{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Approval queue</h1>
+  <p class="muted">Every invoice waits for a person. Exceptions are listed so you can decide fast.</p>
+</div>
+
+<nav class="chips" aria-label="Filter by status">
+  {% for key, label in filters.items() %}
+    <a class="chip {% if key == active %}chip-active{% endif %}" href="/queue?status={{ key }}">
+      {{ label }} <span class="chip-count">{{ counts.get(key, 0) }}</span>
+    </a>
+  {% endfor %}
+</nav>
+
+{% if invoices %}
+<div class="table-wrap">
+<table class="table">
+  <thead>
+    <tr>
+      <th>Vendor</th>
+      <th>Invoice #</th>
+      <th>Date</th>
+      <th class="num">Total</th>
+      <th>Exceptions</th>
+      <th>Match</th>
+      <th>GL</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for inv in invoices %}
+    <tr>
+      <td><a href="/invoices/{{ inv.id }}">{{ inv.vendor_name or "Unreadable invoice" }}</a></td>
+      <td class="mono">{{ inv.invoice_number or "—" }}</td>
+      <td class="nowrap">{{ inv.invoice_date or "—" }}</td>
+      <td class="num">{{ inv.total | money }}</td>
+      <td>
+        {% if inv.exception_reasons %}
+          <ul class="reasons">
+            {% for reason in inv.exception_reasons %}<li>{{ reason }}</li>{% endfor %}
+          </ul>
+        {% else %}
+          <span class="muted">None</span>
+        {% endif %}
+      </td>
+      <td><span class="tag tag-{{ inv.match_status or 'none' }}">{{ (inv.match_status or "—") | replace("_", " ") }}</span></td>
+      <td class="mono">{{ inv.gl_account or "—" }}</td>
+      <td><span class="status status-{{ inv.status }}">{{ inv.status | replace("_", " ") }}</span></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<p class="empty">No invoices in this view.</p>
+{% endif %}
+{% endblock %}

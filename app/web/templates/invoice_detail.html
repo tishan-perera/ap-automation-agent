@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block title %}{{ invoice.invoice_number or "Invoice" }} · AP Automation Agent{% endblock %}
+{% block content %}
+<p><a href="/queue" class="back">← Back to queue</a></p>
+
+<div class="page-head row">
+  <div>
+    <h1>{{ invoice.vendor_name or "Unreadable invoice" }}</h1>
+    <p class="muted mono">{{ invoice.invoice_number or "No invoice number" }} · {{ invoice.filename }}</p>
+  </div>
+  <span class="status status-{{ invoice.status }} status-lg">{{ invoice.status | replace("_", " ") }}</span>
+</div>
+
+{% if notice %}<div class="banner banner-ok" role="status">{{ notice }}</div>{% endif %}
+{% if error %}<div class="banner banner-error" role="alert">{{ error }}</div>{% endif %}
+
+<section class="card {% if invoice.exception_reasons %}card-warn{% endif %}">
+  <h2>Exceptions</h2>
+  {% if invoice.exception_reasons %}
+    <ul class="reasons">{% for reason in invoice.exception_reasons %}<li>{{ reason }}</li>{% endfor %}</ul>
+    <p class="flags">{% for f in invoice.validation_flags %}<span class="flag">{{ f.code }}</span>{% endfor %}</p>
+  {% else %}
+    <p class="muted">No exceptions found. A person still approves every invoice in v1.</p>
+  {% endif %}
+</section>
+
+<div class="grid">
+  <section class="card">
+    <h2>Extracted fields</h2>
+    <dl class="fields">
+      <dt>Vendor</dt><dd>{{ invoice.vendor_name or "—" }}</dd>
+      <dt>Invoice number</dt><dd class="mono">{{ invoice.invoice_number or "—" }}</dd>
+      <dt>Invoice date</dt><dd>{{ invoice.invoice_date or "—" }}</dd>
+      <dt>Due date</dt><dd>{{ invoice.due_date or "—" }}</dd>
+      <dt>PO number</dt><dd class="mono">{{ invoice.po_number or "—" }}</dd>
+      <dt>Subtotal</dt><dd class="num">{{ invoice.subtotal | money }}</dd>
+      <dt>Tax</dt><dd class="num">{{ invoice.tax | money }}</dd>
+      <dt>Total</dt><dd class="num strong">{{ invoice.total | money }}</dd>
+    </dl>
+  </section>
+
+  <section class="card">
+    <h2>PO match</h2>
+    {% set m = invoice.match_details or {} %}
+    <p><span class="tag tag-{{ invoice.match_status or 'none' }}">{{ (invoice.match_status or "not checked") | replace("_", " ") }}</span>
+       <span class="muted">{{ (invoice.match_type or "") | replace("_", "-") }}</span></p>
+    <dl class="fields">
+      {% if m.po_number %}<dt>PO</dt><dd class="mono">{{ m.po_number }}</dd>{% endif %}
+      {% if m.expected_total %}<dt>Expected (PO)</dt><dd class="num">${{ m.expected_total }}</dd>{% endif %}
+      {% if m.actual_total %}<dt>Actual (invoice)</dt><dd class="num">${{ m.actual_total }}</dd>{% endif %}
+      {% if m.difference %}<dt>Difference</dt><dd class="num">${{ m.difference }}</dd>{% endif %}
+      {% if m.tolerance %}<dt>Tolerance</dt><dd class="num">${{ m.tolerance }}</dd>{% endif %}
+      {% if m.po_vendor %}<dt>PO vendor</dt><dd>{{ m.po_vendor }}</dd>{% endif %}
+    </dl>
+    {% for v in m.qty_variances or [] %}
+      <p class="warn-text">{{ v.description }}: invoiced {{ v.invoiced }}, received {{ v.received }}</p>
+    {% endfor %}
+    {% for note in m.notes or [] %}<p class="muted small">{{ note }}</p>{% endfor %}
+  </section>
+
+  <section class="card">
+    <h2>GL suggestion</h2>
+    {% if invoice.gl_account %}
+      <p class="gl"><span class="mono strong">{{ invoice.gl_account }}</span> {{ invoice.gl_account_name }}</p>
+      <p class="muted small">Confidence {{ "%.0f" | format((invoice.gl_confidence or 0) * 100) }}%</p>
+    {% else %}
+      <p class="warn-text">No account suggested. Needs manual coding.</p>
+    {% endif %}
+    {% if invoice.gl_reason %}<p class="small">{{ invoice.gl_reason }}</p>{% endif %}
+  </section>
+</div>
+
+<section class="card">
+  <h2>Line items</h2>
+  {% if invoice.line_items %}
+  <table class="table compact">
+    <thead><tr><th>Description</th><th class="num">Qty</th><th class="num">Unit price</th><th class="num">Amount</th></tr></thead>
+    <tbody>
+      {% for line in invoice.line_items %}
+      <tr>
+        <td>{{ line.description or "—" }}</td>
+        <td class="num">{{ line.quantity.normalize() if line.quantity is not none else "—" }}</td>
+        <td class="num">{{ line.unit_price | money }}</td>
+        <td class="num">{{ line.amount | money }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">No line items were extracted.</p>
+  {% endif %}
+</section>
+
+{% if editable %}
+<section class="card">
+  <h2>Review</h2>
+  <form method="post" action="/invoices/{{ invoice.id }}/edit" class="edit-form">
+    {% set fields = [("vendor_name", "Vendor", invoice.vendor_name), ("invoice_number", "Invoice number", invoice.invoice_number),
+                     ("invoice_date", "Invoice date (YYYY-MM-DD)", invoice.invoice_date), ("due_date", "Due date (YYYY-MM-DD)", invoice.due_date),
+                     ("po_number", "PO number", invoice.po_number), ("subtotal", "Subtotal", invoice.subtotal),
+                     ("tax", "Tax", invoice.tax), ("total", "Total", invoice.total)] %}
+    {% for name, label, value in fields %}
+      <label>{{ label }}<input name="{{ name }}" value="{{ value if value is not none else '' }}"></label>
+    {% endfor %}
+    <div class="actions"><button type="submit" class="btn">Save changes</button></div>
+  </form>
+
+  <div class="decision">
+    <form method="post" action="/invoices/{{ invoice.id }}/approve" hx-confirm="Approve this invoice?">
+      <button type="submit" class="btn btn-approve">Approve</button>
+    </form>
+    <form method="post" action="/invoices/{{ invoice.id }}/reject" class="reject-form">
+      <input name="reason" placeholder="Reason for rejecting (required)" aria-label="Reason for rejecting">
+      <button type="submit" class="btn btn-reject">Reject</button>
+    </form>
+  </div>
+</section>
+{% else %}
+<section class="card">
+  <p class="muted">This invoice is {{ invoice.status | replace("_", " ") }}, so it is locked and cannot be edited.</p>
+</section>
+{% endif %}
+
+<section class="card">
+  <h2>Audit log</h2>
+  <ol class="audit">
+    {% for event in audit %}
+    <li data-action="{{ event.action }}">
+      <span class="audit-when mono">{{ event.at.strftime("%Y-%m-%d %H:%M:%S") }} UTC</span>
+      <strong>{{ event.action }}</strong> by {{ event.actor }}
+      {% if event.note %}<span class="audit-note">“{{ event.note }}”</span>{% endif %}
+      {% if event.action == "edited" %}
+        <span class="audit-diff small">
+          {% for field, old in (event.before_json or {}).items() %}
+            {{ field }}: {{ old if old is not none else "empty" }} → {{ event.after_json[field] if event.after_json[field] is not none else "empty" }}{% if not loop.last %}; {% endif %}
+          {% endfor %}
+        </span>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+{% endblock %}
