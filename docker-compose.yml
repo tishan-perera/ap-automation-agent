@@ -1,0 +1,16 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    # Defaults live here so `docker compose up --build` works with no .env file.
+    # The mock provider needs no API keys.
+    environment:
+      APP_ENV: development
+      LLM_PROVIDER: mock
+      DATABASE_URL: sqlite:///./data/app.db
+      LOG_LEVEL: INFO
+      AMOUNT_TOLERANCE_USD: "1.00"
+      AMOUNT_TOLERANCE_PCT: "0.01"
+    volumes:
+      - ./data:/srv/data
