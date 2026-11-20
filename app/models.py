@@ -94,6 +94,8 @@ class PurchaseOrder(Base):
     status: Mapped[str] = mapped_column(String(10), default="open")
     expected_total: Mapped[Decimal | None] = mapped_column(Money)
 
+    line_items: Mapped[list["POLineItem"]] = relationship(cascade="all, delete-orphan")
+
 
 class POLineItem(Base):
     __tablename__ = "po_line_items"
@@ -113,6 +115,8 @@ class ReceivingRecord(Base):
     po_number: Mapped[str] = mapped_column(String(100), index=True)
     received_date: Mapped[date | None] = mapped_column(Date)
     packing_slip_number: Mapped[str | None] = mapped_column(String(100))
+
+    line_items: Mapped[list["ReceivingLineItem"]] = relationship(cascade="all, delete-orphan")
 
 
 class ReceivingLineItem(Base):

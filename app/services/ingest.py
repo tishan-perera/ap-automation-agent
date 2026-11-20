@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 
 from app.models import AuditEvent, Invoice, InvoiceLineItem, ProcessedFile
 from app.schemas import InvoiceExtraction, ValidationFlag
+from app.services.enrich import enrich_invoice, exception_reasons, mark_not_checked
 from app.services.llm.base import BaseProvider, retry_extract
 from app.services.llm.factory import get_provider
 from app.services.pdf_extract import extract_text
@@ -43,7 +44,7 @@ def _build_invoice(
         raw_text=text,
         extracted_json=extraction.model_dump(mode="json"),
         validation_flags=[f.model_dump() for f in flags],
-        exception_reasons=[f.message for f in flags],
+        exception_reasons=exception_reasons(flags),
         **extraction.model_dump(
             include={
                 "vendor_name",
@@ -111,6 +112,10 @@ def ingest_bytes(
     invoice = _build_invoice(filename, file_hash, text, extraction, flags)
     session.add(invoice)
     session.flush()  # assigns invoice.id
+    if outcome == "extracted":
+        flags = enrich_invoice(session, invoice, flags)
+    else:  # unreadable or failed invoices have nothing reliable to compare
+        mark_not_checked(invoice, f"Duplicate, PO, and GL checks skipped: {outcome}.")
     session.add(ProcessedFile(file_hash=file_hash, invoice_id=invoice.id))
     session.add(
         AuditEvent(

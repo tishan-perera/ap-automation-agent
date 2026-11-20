@@ -118,6 +118,14 @@ def test_chart_of_accounts_is_written(dataset_dir):
     assert codes == {"6100", "6200", "6300", "6400", "6500", "6600", "6700"}
 
 
+def test_vendor_gl_map_covers_every_vendor_with_a_real_account(dataset_dir):
+    vendor_map = load_json(dataset_dir, "vendor_gl_map.json")
+    chart = load_json(dataset_dir, "chart_of_accounts.json")
+    codes = {account["code"] for account in chart["expense_accounts"]}
+    assert set(vendor_map) == FICTIONAL_VENDORS
+    assert set(vendor_map.values()) <= codes
+
+
 def test_happy_pdf_text_has_vendor_and_invoice_number(dataset_dir, ground_truth):
     filename, record = first_of(ground_truth, "happy")
     text = pdf_text(dataset_dir / "invoices" / filename)

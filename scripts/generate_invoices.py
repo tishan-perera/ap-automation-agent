@@ -69,6 +69,16 @@ VENDORS = {
 }
 VENDOR_NAMES = list(VENDORS)
 
+# Seed map used for GL suggestions: vendor -> expense account code.
+VENDOR_GL_MAP = {
+    "Northwind Office Supply LLC": "6100",
+    "Cloudforge Software LLC": "6200",
+    "Harbor and Pine Consulting": "6300",
+    "Riverview Facilities Group": "6400",
+    "Cedar Utilities Inc": "6600",
+    "Lumen and Co Marketing": "6700",
+}
+
 
 def money(value) -> Decimal:
     return Decimal(value).quantize(CENTS)
@@ -334,6 +344,7 @@ def generate_dataset(out_dir: Path | str = DEFAULT_OUT_DIR) -> dict:
     write_json(out_dir / "sample_pos.json", builder.pos)
     write_json(out_dir / "sample_receiving.json", builder.receiving)
     write_json(out_dir / "chart_of_accounts.json", CHART_OF_ACCOUNTS)
+    write_json(out_dir / "vendor_gl_map.json", VENDOR_GL_MAP)
     return json.loads(json.dumps(ground_truth, default=str))
 
 

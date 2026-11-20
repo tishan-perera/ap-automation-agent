@@ -27,6 +27,7 @@ class Settings(BaseSettings):
     gemini_model: str = "gemini-2.5-flash"
     llm_timeout_seconds: float = 30.0
 
+    data_dir: str = "data"
     invoices_dir: str = "data/invoices"
 
 
