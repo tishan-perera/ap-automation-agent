@@ -288,6 +288,9 @@ def render_invoice(path: Path, inv: dict) -> None:
 
     pdf.setFont("Helvetica-Oblique", 8)
     pdf.drawString(72, 60, "Synthetic invoice for demo purposes. All names are fictional.")
+    # A per-file reference keeps every PDF's bytes unique, so a resent (duplicate) invoice
+    # is a different file with the same invoice data, like a real vendor resend.
+    pdf.drawString(72, 48, f"Document ref: {Path(inv['filename']).stem}")
     pdf.save()
 
 

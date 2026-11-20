@@ -1,3 +1,4 @@
+import hashlib
 import json
 from collections import Counter
 
@@ -136,3 +137,10 @@ def test_unreadable_pdf_has_no_labeled_total(dataset_dir, ground_truth):
     text = pdf_text(dataset_dir / "invoices" / filename)
     assert text.strip()
     assert "total" not in text.lower()
+
+
+def test_every_pdf_has_unique_bytes(dataset_dir):
+    # Exact duplicates must be different files with the same invoice data. Byte-identical
+    # copies would be skipped by hash idempotency and never reach duplicate detection.
+    hashes = [hashlib.sha256(p.read_bytes()).hexdigest() for p in dataset_dir.glob("**/*.pdf")]
+    assert len(hashes) == len(set(hashes))
