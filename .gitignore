@@ -27,3 +27,6 @@ data/*.db
 
 # Logs
 *.log
+
+# Local Claude Code tooling (launch configs, settings)
+.claude/
