@@ -1,3 +1,5 @@
+<img src="docs/ap-repo-hero.svg" alt="AP Automation Agent. AI reads invoices, checks them against POs and receipts, and a person approves before export. Synthetic data only." width="100%">
+
 # AP Automation Agent
 
 [![CI](https://github.com/tishan-perera/ap-automation-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/tishan-perera/ap-automation-agent/actions/workflows/ci.yml)
