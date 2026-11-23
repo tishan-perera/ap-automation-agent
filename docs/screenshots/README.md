@@ -1,8 +1,12 @@
 # Screenshots
 
-**Not captured yet.** The main README shows labeled placeholders until these files exist. Save these five PNG files in this folder with exactly these names. Do not substitute mockups: each one should be a real screenshot of the running app.
+**Captured.** The main README embeds these five real screenshots of the running app. The payment-matching and reminder images are cropped to the sections described below, so the long posted-payments list and the extra reminder drafts are not in the README.
 
-**Setup for repeatable screenshots:** delete `data/app.db`, start the app with `AR_REPORT_AS_OF=2026-11-23 .venv/bin/uvicorn app.main:app`, and use a browser window about 1280 px wide.
+**Setup for repeatable screenshots:** start the app against a throwaway database so `data/app.db` is not changed, and use a browser window about 1280 px wide:
+
+```bash
+DATABASE_URL=sqlite:////tmp/ap-screenshots.db AR_REPORT_AS_OF=2026-11-23 .venv/bin/uvicorn app.main:app
+```
 
 | File | Page | What it should show |
 |---|---|---|
@@ -12,6 +16,6 @@
 | `cash.png` | Cash tab: http://127.0.0.1:8000/cash?as_of=2026-10-15 | Money in and money out, and the **Next 30 days** list with amber rows only for bills waiting for review. (Aging, http://127.0.0.1:8000/receivables/aging, is an acceptable alternative.) |
 | `reminder-draft.png` | Receivables → Reminders: http://127.0.0.1:8000/receivables/reminders | A draft **waiting for review** (for example Amberfield Clinics LLC, final tone), and the note that drafts are never emailed. |
 
-After saving the files, replace each placeholder in the main README with an image line such as `![Payables approval queue](docs/screenshots/queue.png)`.
+The main README embeds each file with an image line such as `![Payables approval queue](docs/screenshots/queue.png)`.
 
 All data in the app is synthetic, so the screenshots contain no real company or personal information.

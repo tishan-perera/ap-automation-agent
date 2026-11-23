@@ -49,17 +49,17 @@ The app handles the repetitive ~80% and leaves the judgement calls to a person:
 
 ## Screenshots
 
-> **Placeholder: `docs/screenshots/queue.png` has not been captured yet.** The Payables approval queue.
+![Payables approval queue](docs/screenshots/queue.png)
 
-> **Placeholder: `docs/screenshots/ap-exception.png` has not been captured yet.** The missing-total AP invoice, with Total shown as "—", not $0.
+![Missing-total AP invoice](docs/screenshots/ap-exception.png)
 
-> **Placeholder: `docs/screenshots/ar-payment-review.png` has not been captured yet.** Receivables payment matching, with an overpayment and an unidentified payment waiting for a person.
+![Receivables payment matching](docs/screenshots/ar-payment-review.png)
 
-> **Placeholder: `docs/screenshots/cash.png` has not been captured yet.** The Cash tab: money in, money out, and the 30-day list.
+![Cash tab](docs/screenshots/cash.png)
 
-> **Placeholder: `docs/screenshots/reminder-draft.png` has not been captured yet.** A collection reminder draft waiting for review.
+![Collection reminder draft](docs/screenshots/reminder-draft.png)
 
-See [docs/screenshots/README.md](docs/screenshots/README.md) for how to capture them.
+See [docs/screenshots/README.md](docs/screenshots/README.md) for how these were captured.
 
 ## Architecture
 
