@@ -16,12 +16,14 @@ class OpenAIProvider(BaseProvider):
         # max_retries=0: retry_extract owns the retry policy, so the SDK must not retry too.
         self._client = OpenAI(api_key=api_key, timeout=timeout, max_retries=0)
 
-    def extract(self, text: str) -> InvoiceExtraction:
+    def structured_completion(self, system: str, user: str, schema):
         response = self._client.responses.parse(
-            model=self.model,
-            instructions=SYSTEM_PROMPT,
-            input=user_prompt(text),
-            text_format=LLMExtraction,
+            model=self.model, instructions=system, input=user, text_format=schema
         )
         self.last_token_usage = response.usage.total_tokens if response.usage else 0
-        return to_extraction(response.output_parsed)
+        return response.output_parsed
+
+    def extract(self, text: str) -> InvoiceExtraction:
+        return to_extraction(
+            self.structured_completion(SYSTEM_PROMPT, user_prompt(text), LLMExtraction)
+        )

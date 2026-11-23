@@ -43,3 +43,44 @@ class ARInvoiceDetail(ARInvoiceSummary):
     pdf_path: str | None
     created_at: datetime
     updated_at: datetime
+
+
+class PaymentApplicationOut(BaseModel):
+    model_config = {"from_attributes": True}
+
+    invoice_number: str | None
+    amount_applied: Decimal
+    match_kind: str
+    confidence: float | None
+    posted_at: datetime | None
+    approved_by: str | None
+
+
+class BankPaymentOut(BaseModel):
+    """A bank payment with its proposed or posted applications."""
+
+    model_config = {"from_attributes": True}
+
+    payment_ref: str
+    payment_date: date
+    amount: Decimal
+    currency: str
+    memo: str | None
+    payer_name_raw: str | None
+    status: str
+    confidence: float | None
+    match_details: dict | None
+    applications: list[PaymentApplicationOut]
+
+
+class RejectIn(BaseModel):
+    reason: str = ""
+
+
+class ApplicationIn(BaseModel):
+    invoice_number: str
+    amount: str
+
+
+class EditIn(BaseModel):
+    applications: list[ApplicationIn]

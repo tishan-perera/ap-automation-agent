@@ -1,7 +1,7 @@
-"""Load synthetic AR customers and sales orders from data/ar/ JSON fixtures.
+"""Load synthetic AR customers, sales orders, and bank payments from data/ar/ fixtures.
 
-Safe to run repeatedly: rows are matched by account_number / order_number and existing
-rows are never overwritten. Bank payments are loaded in a later phase.
+Safe to run repeatedly: rows are matched by account_number / order_number / payment_ref
+and existing rows are never overwritten. The answer key (ground_truth.json) is never read.
 """
 
 import json
@@ -12,7 +12,7 @@ from pathlib import Path
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.models_ar import Customer, SalesOrder, SalesOrderLineItem
+from app.models_ar import BankPayment, Customer, SalesOrder, SalesOrderLineItem
 
 
 def _decimal(value) -> Decimal | None:
@@ -65,13 +65,34 @@ def _seed_orders(session: Session, rows: list[dict]) -> int:
     return created
 
 
+def _seed_payments(session: Session, rows: list[dict]) -> int:
+    existing = set(session.scalars(select(BankPayment.payment_ref)))
+    new = [row for row in rows if row["payment_ref"] not in existing]
+    for row in new:
+        session.add(
+            BankPayment(
+                payment_ref=row["payment_ref"],
+                payment_date=date.fromisoformat(row["payment_date"]),
+                amount=Decimal(row["amount"]),
+                currency=row.get("currency", "USD"),
+                memo=row.get("memo"),
+                payer_name_raw=row.get("payer_name_raw"),
+                status="unmatched",
+            )
+        )
+    return len(new)
+
+
 def seed_ar_reference(session: Session, ar_dir: Path | str) -> dict[str, int]:
-    """Insert missing customers and sales orders; return how many of each were created."""
+    """Insert missing customers, orders, and bank payments; return how many were created."""
     ar_dir = Path(ar_dir)
     created = {
         "customers": _seed_customers(session, json.loads((ar_dir / "customers.json").read_text())),
         "sales_orders": _seed_orders(
             session, json.loads((ar_dir / "sales_orders.json").read_text())
+        ),
+        "bank_payments": _seed_payments(
+            session, json.loads((ar_dir / "bank_payments.json").read_text())
         ),
     }
     session.commit()

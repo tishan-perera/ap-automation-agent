@@ -1,0 +1,362 @@
+{
+  "matcher": "mock",
+  "payment_count": 15,
+  "status_accuracy": {
+    "correct": 15,
+    "total": 15,
+    "accuracy": 1.0
+  },
+  "application_accuracy": {
+    "correct": 15,
+    "total": 15,
+    "accuracy": 1.0
+  },
+  "auto_posted": 9,
+  "sent_to_review": 4,
+  "left_unidentified": 2,
+  "by_case_type": {
+    "exact_invoice_number": {
+      "payments": 5,
+      "status_correct": 5,
+      "applications_correct": 5
+    },
+    "messy_memo": {
+      "payments": 3,
+      "status_correct": 3,
+      "applications_correct": 3
+    },
+    "multi_invoice": {
+      "payments": 2,
+      "status_correct": 2,
+      "applications_correct": 2
+    },
+    "overpayment": {
+      "payments": 1,
+      "status_correct": 1,
+      "applications_correct": 1
+    },
+    "partial": {
+      "payments": 2,
+      "status_correct": 2,
+      "applications_correct": 2
+    },
+    "unidentified": {
+      "payments": 2,
+      "status_correct": 2,
+      "applications_correct": 2
+    }
+  },
+  "payments": [
+    {
+      "payment_ref": "BP-0001",
+      "case_type": "exact_invoice_number",
+      "expected_status": "posted",
+      "actual_status": "posted",
+      "confidence": 0.97,
+      "expected_applications": [
+        {
+          "invoice_number": "AR-1001",
+          "amount": "6600.00"
+        }
+      ],
+      "actual_applications": [
+        {
+          "invoice_number": "AR-1001",
+          "amount": "6600.00"
+        }
+      ],
+      "status_correct": true,
+      "applications_correct": true
+    },
+    {
+      "payment_ref": "BP-0002",
+      "case_type": "exact_invoice_number",
+      "expected_status": "posted",
+      "actual_status": "posted",
+      "confidence": 0.97,
+      "expected_applications": [
+        {
+          "invoice_number": "AR-1002",
+          "amount": "1875.00"
+        }
+      ],
+      "actual_applications": [
+        {
+          "invoice_number": "AR-1002",
+          "amount": "1875.00"
+        }
+      ],
+      "status_correct": true,
+      "applications_correct": true
+    },
+    {
+      "payment_ref": "BP-0003",
+      "case_type": "exact_invoice_number",
+      "expected_status": "posted",
+      "actual_status": "posted",
+      "confidence": 0.97,
+      "expected_applications": [
+        {
+          "invoice_number": "AR-1003",
+          "amount": "285.00"
+        }
+      ],
+      "actual_applications": [
+        {
+          "invoice_number": "AR-1003",
+          "amount": "285.00"
+        }
+      ],
+      "status_correct": true,
+      "applications_correct": true
+    },
+    {
+      "payment_ref": "BP-0004",
+      "case_type": "exact_invoice_number",
+      "expected_status": "posted",
+      "actual_status": "posted",
+      "confidence": 0.97,
+      "expected_applications": [
+        {
+          "invoice_number": "AR-1004",
+          "amount": "3600.00"
+        }
+      ],
+      "actual_applications": [
+        {
+          "invoice_number": "AR-1004",
+          "amount": "3600.00"
+        }
+      ],
+      "status_correct": true,
+      "applications_correct": true
+    },
+    {
+      "payment_ref": "BP-0005",
+      "case_type": "exact_invoice_number",
+      "expected_status": "posted",
+      "actual_status": "posted",
+      "confidence": 0.97,
+      "expected_applications": [
+        {
+          "invoice_number": "AR-1005",
+          "amount": "5100.00"
+        }
+      ],
+      "actual_applications": [
+        {
+          "invoice_number": "AR-1005",
+          "amount": "5100.00"
+        }
+      ],
+      "status_correct": true,
+      "applications_correct": true
+    },
+    {
+      "payment_ref": "BP-0006",
+      "case_type": "messy_memo",
+      "expected_status": "posted",
+      "actual_status": "posted",
+      "confidence": 0.92,
+      "expected_applications": [
+        {
+          "invoice_number": "AR-1006",
+          "amount": "1840.00"
+        }
+      ],
+      "actual_applications": [
+        {
+          "invoice_number": "AR-1006",
+          "amount": "1840.00"
+        }
+      ],
+      "status_correct": true,
+      "applications_correct": true
+    },
+    {
+      "payment_ref": "BP-0007",
+      "case_type": "messy_memo",
+      "expected_status": "posted",
+      "actual_status": "posted",
+      "confidence": 0.9,
+      "expected_applications": [
+        {
+          "invoice_number": "AR-1008",
+          "amount": "2550.00"
+        }
+      ],
+      "actual_applications": [
+        {
+          "invoice_number": "AR-1008",
+          "amount": "2550.00"
+        }
+      ],
+      "status_correct": true,
+      "applications_correct": true
+    },
+    {
+      "payment_ref": "BP-0008",
+      "case_type": "messy_memo",
+      "expected_status": "posted",
+      "actual_status": "posted",
+      "confidence": 0.92,
+      "expected_applications": [
+        {
+          "invoice_number": "AR-1007",
+          "amount": "960.00"
+        }
+      ],
+      "actual_applications": [
+        {
+          "invoice_number": "AR-1007",
+          "amount": "960.00"
+        }
+      ],
+      "status_correct": true,
+      "applications_correct": true
+    },
+    {
+      "payment_ref": "BP-0009",
+      "case_type": "overpayment",
+      "expected_status": "needs_review",
+      "actual_status": "needs_review",
+      "confidence": 0.97,
+      "expected_applications": [
+        {
+          "invoice_number": "AR-1012",
+          "amount": "6620.00"
+        }
+      ],
+      "actual_applications": [
+        {
+          "invoice_number": "AR-1012",
+          "amount": "6620.00"
+        }
+      ],
+      "status_correct": true,
+      "applications_correct": true
+    },
+    {
+      "payment_ref": "BP-0010",
+      "case_type": "partial",
+      "expected_status": "needs_review",
+      "actual_status": "needs_review",
+      "confidence": 0.97,
+      "expected_applications": [
+        {
+          "invoice_number": "AR-1014",
+          "amount": "3000.00"
+        }
+      ],
+      "actual_applications": [
+        {
+          "invoice_number": "AR-1014",
+          "amount": "3000.00"
+        }
+      ],
+      "status_correct": true,
+      "applications_correct": true
+    },
+    {
+      "payment_ref": "BP-0011",
+      "case_type": "unidentified",
+      "expected_status": "unidentified",
+      "actual_status": "unidentified",
+      "confidence": 0.0,
+      "expected_applications": [],
+      "actual_applications": [],
+      "status_correct": true,
+      "applications_correct": true
+    },
+    {
+      "payment_ref": "BP-0012",
+      "case_type": "multi_invoice",
+      "expected_status": "posted",
+      "actual_status": "posted",
+      "confidence": 0.97,
+      "expected_applications": [
+        {
+          "invoice_number": "AR-1010",
+          "amount": "22200.00"
+        },
+        {
+          "invoice_number": "AR-1018",
+          "amount": "4450.00"
+        }
+      ],
+      "actual_applications": [
+        {
+          "invoice_number": "AR-1018",
+          "amount": "4450.00"
+        },
+        {
+          "invoice_number": "AR-1010",
+          "amount": "22200.00"
+        }
+      ],
+      "status_correct": true,
+      "applications_correct": true
+    },
+    {
+      "payment_ref": "BP-0013",
+      "case_type": "multi_invoice",
+      "expected_status": "needs_review",
+      "actual_status": "needs_review",
+      "confidence": 0.6,
+      "expected_applications": [
+        {
+          "invoice_number": "AR-1011",
+          "amount": "1920.00"
+        },
+        {
+          "invoice_number": "AR-1019",
+          "amount": "95.00"
+        }
+      ],
+      "actual_applications": [
+        {
+          "invoice_number": "AR-1011",
+          "amount": "1920.00"
+        },
+        {
+          "invoice_number": "AR-1019",
+          "amount": "95.00"
+        }
+      ],
+      "status_correct": true,
+      "applications_correct": true
+    },
+    {
+      "payment_ref": "BP-0014",
+      "case_type": "partial",
+      "expected_status": "needs_review",
+      "actual_status": "needs_review",
+      "confidence": 0.97,
+      "expected_applications": [
+        {
+          "invoice_number": "AR-1014",
+          "amount": "2250.00"
+        }
+      ],
+      "actual_applications": [
+        {
+          "invoice_number": "AR-1014",
+          "amount": "2250.00"
+        }
+      ],
+      "status_correct": true,
+      "applications_correct": true
+    },
+    {
+      "payment_ref": "BP-0015",
+      "case_type": "unidentified",
+      "expected_status": "unidentified",
+      "actual_status": "unidentified",
+      "confidence": 0.0,
+      "expected_applications": [],
+      "actual_applications": [],
+      "status_correct": true,
+      "applications_correct": true
+    }
+  ]
+}

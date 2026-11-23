@@ -20,16 +20,21 @@ class GeminiProvider(BaseProvider):
             api_key=api_key, http_options=types.HttpOptions(timeout=int(timeout * 1000))
         )
 
-    def extract(self, text: str) -> InvoiceExtraction:
+    def structured_completion(self, system: str, user: str, schema):
         response = self._client.models.generate_content(
             model=self.model,
-            contents=user_prompt(text),
+            contents=user,
             config=types.GenerateContentConfig(
-                system_instruction=SYSTEM_PROMPT,
+                system_instruction=system,
                 response_mime_type="application/json",
-                response_schema=LLMExtraction,
+                response_schema=schema,
             ),
         )
         usage = response.usage_metadata
         self.last_token_usage = (usage.total_token_count or 0) if usage else 0
-        return to_extraction(LLMExtraction.model_validate_json(response.text))
+        return schema.model_validate_json(response.text)
+
+    def extract(self, text: str) -> InvoiceExtraction:
+        return to_extraction(
+            self.structured_completion(SYSTEM_PROMPT, user_prompt(text), LLMExtraction)
+        )

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Payment review · AP Automation Agent{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Payment review</h1>
+  <p class="muted">Bank payments the matcher could not post on its own. Nothing is posted until you approve it.
+    Matches post automatically only when confidence is at least 90% and the payment exactly covers the invoices.</p>
+</div>
+
+{% if notice %}<div class="banner banner-ok" role="status">{{ notice }}</div>{% endif %}
+{% if error %}<div class="banner banner-error" role="alert">{{ error }}</div>{% endif %}
+
+{% set titles = {"needs_review": "Needs review", "unidentified": "Unidentified", "posted": "Posted"} %}
+{% for key, payments in groups.items() %}
+<section class="card">
+  <h2>{{ titles[key] }} <span class="muted small">({{ payments | length }})</span></h2>
+  {% if not payments %}
+    <p class="muted">None.</p>
+  {% endif %}
+  {% for p in payments %}
+  {% set d = p.match_details or {} %}
+  <div class="payment" id="{{ p.payment_ref }}">
+    <p>
+      <span class="mono strong">{{ p.payment_ref }}</span>
+      <span class="mono">{{ p.payment_date }}</span>
+      <span class="mono strong">{{ p.amount | money }}</span>
+      <span class="status status-{{ 'needs_review' if key != 'posted' else 'approved' }}">{{ key | replace("_", " ") }}</span>
+      {% if p.confidence is not none %}<span class="muted small">match confidence {{ "%.0f" | format(p.confidence * 100) }}%</span>{% endif %}
+    </p>
+    {% if key != "posted" and (d.rejected_reason or d.review_reason) %}
+      <p class="warn-text small"><strong>Why a person is needed:</strong>
+        {{ ("Rejected: " ~ d.rejected_reason) if d.rejected_reason else d.review_reason }}</p>
+    {% endif %}
+    <p class="small">Memo: <span class="mono">{{ p.memo or "(empty)" }}</span> · Payer: <span class="mono">{{ p.payer_name_raw or "(empty)" }}</span>
+      · Customer: {{ d.customer_account or "not identified" }}</p>
+    {% if d.explanation %}<p class="muted small">{{ d.explanation }}</p>{% endif %}
+
+    {% if p.applications %}
+    <table class="table compact">
+      <thead><tr><th>Invoice</th><th>Kind</th><th class="num">Applied</th><th>Posted</th></tr></thead>
+      <tbody>
+        {% for a in p.applications %}
+        <tr>
+          <td class="mono">{{ a.invoice_number }}</td>
+          <td>{{ a.match_kind | replace("_", " ") }}</td>
+          <td class="num">{{ a.amount_applied | money }}</td>
+          <td class="small">{{ "yes" if a.posted_at else "not yet" }}{% if a.approved_by %} · by {{ a.approved_by }}{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+    {% if d.unapplied_amount and d.unapplied_amount != "0.00" %}
+      <p class="warn-text small">Unapplied: ${{ d.unapplied_amount }}</p>
+    {% endif %}
+
+    {% if key != "posted" %}
+    <div class="decision">
+      {% if key == "needs_review" %}
+      <form method="post" action="/receivables/payments/{{ p.payment_ref }}/approve">
+        <button type="submit" class="btn btn-approve">Approve and post</button>
+      </form>
+      <form method="post" action="/receivables/payments/{{ p.payment_ref }}/reject" class="reject-form">
+        <input name="reason" placeholder="Reason for rejecting (required)" aria-label="Reason for rejecting {{ p.payment_ref }}">
+        <button type="submit" class="btn btn-reject">Reject</button>
+      </form>
+      {% endif %}
+      <form method="post" action="/receivables/payments/{{ p.payment_ref }}/edit" class="reject-form">
+        <textarea name="lines" rows="2" aria-label="Applications for {{ p.payment_ref }}"
+          placeholder="One per line: AR-1011 1920.00">{% for a in p.applications %}{{ a.invoice_number }} {{ a.amount_applied }}
+{% endfor %}</textarea>
+        <button type="submit" class="btn">Save applications</button>
+      </form>
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</section>
+{% endfor %}
+{% endblock %}

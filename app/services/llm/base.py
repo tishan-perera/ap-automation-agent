@@ -30,6 +30,13 @@ class BaseProvider(ABC):
     def extract(self, text: str) -> InvoiceExtraction:
         """Turn invoice text into structured fields. Unknown values must be None."""
 
+    def structured_completion(self, system: str, user: str, schema):
+        """Ask the model for a reply shaped like `schema` (a Pydantic model class).
+
+        Real providers implement this; the offline mock does not call a model at all.
+        """
+        raise NotImplementedError(f"{self.name} does not call a language model.")
+
 
 def is_retryable(exc: Exception) -> bool:
     """Retry timeouts, 429, and 5xx. Ordinary 4xx errors are not retried."""

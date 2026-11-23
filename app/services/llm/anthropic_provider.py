@@ -18,13 +18,18 @@ class AnthropicProvider(BaseProvider):
         # max_retries=0: retry_extract owns the retry policy, so the SDK must not retry too.
         self._client = Anthropic(api_key=api_key, timeout=timeout, max_retries=0)
 
-    def extract(self, text: str) -> InvoiceExtraction:
+    def structured_completion(self, system: str, user: str, schema):
         message = self._client.messages.parse(
             model=self.model,
             max_tokens=2048,
-            system=SYSTEM_PROMPT,
-            messages=[{"role": "user", "content": user_prompt(text)}],
-            output_format=LLMExtraction,
+            system=system,
+            messages=[{"role": "user", "content": user}],
+            output_format=schema,
         )
         self.last_token_usage = message.usage.input_tokens + message.usage.output_tokens
-        return to_extraction(message.parsed_output)
+        return message.parsed_output
+
+    def extract(self, text: str) -> InvoiceExtraction:
+        return to_extraction(
+            self.structured_completion(SYSTEM_PROMPT, user_prompt(text), LLMExtraction)
+        )

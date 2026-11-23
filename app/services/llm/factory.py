@@ -11,6 +11,8 @@ from app.services.llm.base import BaseProvider
 from app.services.llm.gemini_provider import GeminiProvider
 from app.services.llm.mock import MockProvider
 from app.services.llm.openai_provider import OpenAIProvider
+from app.services.llm.payment_matcher import LLMPaymentMatcher, PaymentMatcher
+from app.services.llm.payment_matcher_mock import MockPaymentMatcher
 
 logger = logging.getLogger(__name__)
 
@@ -49,3 +51,11 @@ def get_provider(session: Session | None = None) -> BaseProvider:
         model=getattr(settings, model_field),
         timeout=settings.llm_timeout_seconds,
     )
+
+
+def get_payment_matcher(session: Session | None = None) -> PaymentMatcher:
+    """Same provider choice as get_provider(): the mock unless a real provider has a key."""
+    provider = get_provider(session)
+    if isinstance(provider, MockProvider):
+        return MockPaymentMatcher()
+    return LLMPaymentMatcher(provider)

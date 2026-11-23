@@ -7,7 +7,7 @@ Money is Decimal; ids are UUID strings; timestamps are UTC.
 from datetime import date, datetime
 from decimal import Decimal
 
-from sqlalchemy import Date, DateTime, ForeignKey, String, Text
+from sqlalchemy import JSON, Date, DateTime, Float, ForeignKey, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models import Base, Money, Quantity, new_id, utcnow
@@ -102,3 +102,49 @@ class ARInvoiceLineItem(Base):
     quantity: Mapped[Decimal | None] = mapped_column(Quantity)
     unit_price: Mapped[Decimal | None] = mapped_column(Money)
     amount: Mapped[Decimal | None] = mapped_column(Money)
+
+
+class BankPayment(Base):
+    """One line from the synthetic bank feed."""
+
+    __tablename__ = "bank_payments"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    # Stable reference from the feed (e.g. BP-0001); the answer key is keyed by it.
+    payment_ref: Mapped[str] = mapped_column(String(30), unique=True, index=True)
+    payment_date: Mapped[date] = mapped_column(Date)
+    amount: Mapped[Decimal] = mapped_column(Money)
+    currency: Mapped[str] = mapped_column(String(3), default="USD")
+    memo: Mapped[str | None] = mapped_column(Text)
+    payer_name_raw: Mapped[str | None] = mapped_column(String(255))
+    status: Mapped[str] = mapped_column(String(15), default="unmatched")
+    # unmatched | needs_review | posted | unidentified
+    confidence: Mapped[float | None] = mapped_column(Float)
+    match_details: Mapped[dict | None] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    applications: Mapped[list["PaymentApplication"]] = relationship(
+        cascade="all, delete-orphan", order_by="PaymentApplication.id"
+    )
+
+
+class PaymentApplication(Base):
+    """Part of a payment applied to one AR invoice. posted_at is null until it is posted."""
+
+    __tablename__ = "payment_applications"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    payment_id: Mapped[str] = mapped_column(ForeignKey("bank_payments.id"), index=True)
+    ar_invoice_id: Mapped[str | None] = mapped_column(ForeignKey("ar_invoices.id"), index=True)
+    amount_applied: Mapped[Decimal] = mapped_column(Money)
+    confidence: Mapped[float | None] = mapped_column(Float)
+    # invoice_number | amount_and_customer | split | partial | overpayment | unidentified
+    match_kind: Mapped[str] = mapped_column(String(25))
+    posted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    approved_by: Mapped[str | None] = mapped_column(String(100))  # null for auto-posts
+
+    invoice: Mapped[ARInvoice | None] = relationship()
+
+    @property
+    def invoice_number(self) -> str | None:
+        return self.invoice.invoice_number if self.invoice else None

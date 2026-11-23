@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 from app.models import Invoice
 from app.services.ar.invoicing import create_invoices_from_orders
 from app.services.ar.seed import seed_ar_reference
+from app.services.cash_application import apply_payments
 from app.services.ingest import ingest_bytes
 from app.services.seed import seed_reference_data
 
@@ -30,12 +31,17 @@ def bootstrap_demo(session: Session, data_dir: Path | str, invoices_dir: Path | 
 
 
 def bootstrap_ar_demo(session: Session, ar_dir: Path | str, pdf_dir: Path | str) -> int:
-    """Seed missing AR customers and orders, then invoice any order without an invoice.
+    """Seed missing AR customers, orders, and bank payments; invoice any order without an
+    invoice; then match any payment not yet matched.
 
     Returns the number of AR invoices created. Existing rows are never changed.
     """
     seed_ar_reference(session, ar_dir)
     created = create_invoices_from_orders(session, pdf_dir)
-    if created:
-        logger.info("demo_ar_invoices_created", extra={"ar_invoices_created": len(created)})
+    matched = apply_payments(session)
+    if created or matched:
+        logger.info(
+            "demo_ar_ready",
+            extra={"ar_invoices_created": len(created), "payments_matched": len(matched)},
+        )
     return len(created)
