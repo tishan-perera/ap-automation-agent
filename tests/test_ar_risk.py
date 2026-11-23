@@ -82,7 +82,7 @@ def test_points_and_levels_are_documented_constants():
         "OLDEST_PAST_DUE_31_60": 20,
         "OLDEST_PAST_DUE_61_90": 40,
         "OLDEST_PAST_DUE_90_PLUS": 60,
-        "INVOICES_30_PLUS": 15,  # per invoice, capped at 30
+        "INVOICES_30_PLUS": 10,  # per invoice, capped at 20
         "PARTIAL_PAY_PATTERN": 10,
     }
     assert [level_for(s) for s in (0, 24, 25, 49, 50, 100)] == [
@@ -117,7 +117,7 @@ def test_one_invoice_35_days_late_is_medium(session):
     risk = assess(session, cust)
 
     assert risk.rule_codes == ["OLDEST_PAST_DUE_31_60", "INVOICES_30_PLUS"]
-    assert (risk.score, risk.level) == (20 + 15, "medium")
+    assert (risk.score, risk.level) == (20 + 10, "medium")
 
 
 def test_thirty_days_late_counts_toward_invoices_30_plus(session):
@@ -127,17 +127,17 @@ def test_thirty_days_late_counts_toward_invoices_30_plus(session):
     risk = assess(session, cust)
 
     assert risk.rule_codes == ["OLDEST_PAST_DUE_1_30", "INVOICES_30_PLUS"]
-    assert risk.score == 15
+    assert risk.score == 10
 
 
-def test_invoices_30_plus_is_capped_at_30_points(session):
+def test_invoices_30_plus_is_capped_at_20_points(session):
     cust = customer(session)
     for days in (95, 70, 45, 33):
         invoice(session, cust, days_late=days)
 
     risk = assess(session, cust)
 
-    assert risk.score == 60 + 30  # oldest 90+ plus the capped count
+    assert risk.score == 60 + 20  # oldest 90+ plus the capped count
     assert risk.facts.invoices_30_plus == 4
     assert risk.level == "high"
 
@@ -267,11 +267,19 @@ def test_fixture_customers_land_in_the_expected_levels(fixtures):
 
     amberfield = results["Amberfield Clinics LLC"]  # oldest 68 days late, two invoices 30+ late
     assert amberfield.rule_codes == ["OLDEST_PAST_DUE_61_90", "INVOICES_30_PLUS"]
-    assert (amberfield.score, amberfield.level) == (40 + 30, "high")
+    assert (amberfield.score, amberfield.level) == (40 + 20, "high")
 
     blue_harbor = results["Blue Harbor Retail Group"]  # everything paid
     assert (blue_harbor.score, blue_harbor.level, blue_harbor.rule_codes) == (0, "low", [])
     assert len(results) == 8  # every customer is assessed, flagged or not
+
+
+def test_customer_with_oldest_31_60_and_two_late_invoices_is_medium(fixtures):
+    results = by_name(assess_risk(fixtures, AS_OF, MockRiskExplainer()))
+
+    cedar = results["Cedar & Elm Wholesale"]  # oldest 60 days late, two invoices 30+ late
+    assert cedar.rule_codes == ["OLDEST_PAST_DUE_31_60", "INVOICES_30_PLUS"]
+    assert (cedar.score, cedar.level) == (20 + 20, "medium")
 
 
 def test_approving_two_partials_adds_the_partial_pay_pattern(fixtures):
@@ -284,7 +292,8 @@ def test_approving_two_partials_adds_the_partial_pay_pattern(fixtures):
     northlake = by_name(assess_risk(fixtures, AS_OF, MockRiskExplainer()))["Northlake Studio LLC"]
 
     assert "PARTIAL_PAY_PATTERN" in northlake.rule_codes
-    assert northlake.score == 20 + 30 + 10
+    assert northlake.score == 20 + 20 + 10
+    assert northlake.level == "high"
 
 
 def test_assessing_risk_changes_nothing(fixtures):

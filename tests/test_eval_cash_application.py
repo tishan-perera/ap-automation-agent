@@ -96,3 +96,16 @@ def test_script_uses_mock_even_if_a_real_provider_is_configured(tmp_path):
     assert result.returncode == 0, result.stderr
     assert "Status accuracy" in result.stdout
     assert json.loads((tmp_path / "ar-matching-eval.json").read_text())["matcher"] == "mock"
+
+
+def test_application_lists_are_sorted_so_reruns_do_not_change_the_file(report, tmp_path):
+    data, out_dir = report
+    for row in data["payments"]:
+        for key in ("actual_applications", "expected_applications"):
+            numbers = [a["invoice_number"] for a in row[key]]
+            assert numbers == sorted(numbers), (row["payment_ref"], key)
+
+    run_eval(AR_DIR, tmp_path)
+    assert (tmp_path / "ar-matching-eval.json").read_bytes() == (
+        out_dir / "ar-matching-eval.json"
+    ).read_bytes()

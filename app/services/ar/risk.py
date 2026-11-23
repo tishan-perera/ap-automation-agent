@@ -5,7 +5,7 @@ facts in plain English; it never sees or changes the score. Read-only: nothing i
 
 Rules and points:
   OLDEST_PAST_DUE_1_30 / _31_60 / _61_90 / _90_PLUS  oldest open invoice   0 / 20 / 40 / 60
-  INVOICES_30_PLUS     each open invoice 30 or more days past due      15 each, capped at 30
+  INVOICES_30_PLUS     each open invoice 30 or more days past due      10 each, capped at 20
   PARTIAL_PAY_PATTERN  2+ posted partial payments in the last 90 days  10
 Levels: low under 25, medium 25-49, high 50 or more.
 """
@@ -27,10 +27,10 @@ POINTS = {
     "OLDEST_PAST_DUE_31_60": 20,
     "OLDEST_PAST_DUE_61_90": 40,
     "OLDEST_PAST_DUE_90_PLUS": 60,
-    "INVOICES_30_PLUS": 15,
+    "INVOICES_30_PLUS": 10,
     "PARTIAL_PAY_PATTERN": 10,
 }
-INVOICES_30_PLUS_CAP = 30
+INVOICES_30_PLUS_CAP = 20
 PARTIAL_WINDOW_DAYS = 90
 PARTIAL_PAYMENTS_FOR_PATTERN = 2
 

@@ -52,7 +52,11 @@ def _match_all(ar_dir: Path) -> list[dict]:
                 "payment_ref": p.payment_ref,
                 "status": p.status,
                 "confidence": p.confidence,
-                "applications": [(a.invoice_number, str(a.amount_applied)) for a in p.applications],
+                # Sorted by invoice number: application row order is not meaningful, and a
+                # stable order keeps the committed report identical between runs.
+                "applications": sorted(
+                    (a.invoice_number, str(a.amount_applied)) for a in p.applications
+                ),
             }
             for p in apply_payments(session, MockPaymentMatcher())
         ]
@@ -84,7 +88,9 @@ def run_eval(ar_dir: Path | str, out_dir: Path | str) -> dict:
                 "expected_status": expected["expected_status"],
                 "actual_status": result["status"],
                 "confidence": result["confidence"],
-                "expected_applications": expected["applications"],
+                "expected_applications": sorted(
+                    expected["applications"], key=lambda a: a["invoice_number"]
+                ),
                 "actual_applications": [
                     {"invoice_number": n, "amount": a} for n, a in result["applications"]
                 ],

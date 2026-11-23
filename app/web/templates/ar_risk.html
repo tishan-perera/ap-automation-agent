@@ -37,7 +37,7 @@
   <ul class="small">
     <li>Oldest open invoice past due: 1-30 days {{ points.OLDEST_PAST_DUE_1_30 }}, 31-60 days {{ points.OLDEST_PAST_DUE_31_60 }},
       61-90 days {{ points.OLDEST_PAST_DUE_61_90 }}, over 90 days {{ points.OLDEST_PAST_DUE_90_PLUS }} points.</li>
-    <li>Each open invoice 30 or more days past due: {{ points.INVOICES_30_PLUS }} points, up to 30.</li>
+    <li>Each open invoice 30 or more days past due: {{ points.INVOICES_30_PLUS }} points, up to {{ invoices_30_plus_cap }}.</li>
     <li>Two or more posted partial payments in the last 90 days: {{ points.PARTIAL_PAY_PATTERN }} points.</li>
     <li>Level: low under 25, medium 25-49, high 50 or more.</li>
   </ul>

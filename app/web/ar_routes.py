@@ -16,7 +16,7 @@ from app.models_ar import BankPayment
 from app.routers.ar import payment_or_404
 from app.services.ar import payment_review
 from app.services.ar.aging import BUCKETS, build_aging, resolve_as_of
-from app.services.ar.risk import POINTS, assess_risk
+from app.services.ar.risk import INVOICES_30_PLUS_CAP, POINTS, assess_risk
 from app.services.review import ReviewError
 from app.web.routes import templates
 
@@ -110,5 +110,10 @@ def aging_page(request: Request, session: SessionDep, as_of: date | None = None)
 def risk_page(request: Request, session: SessionDep, as_of: date | None = None):
     """Read-only: computed on demand from the rules; nothing is saved."""
     as_of = resolve_as_of(as_of)
-    context = {"results": assess_risk(session, as_of), "as_of": as_of, "points": POINTS}
+    context = {
+        "results": assess_risk(session, as_of),
+        "as_of": as_of,
+        "points": POINTS,
+        "invoices_30_plus_cap": INVOICES_30_PLUS_CAP,
+    }
     return templates.TemplateResponse(request, "ar_risk.html", context)

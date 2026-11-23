@@ -286,12 +286,12 @@
       ],
       "actual_applications": [
         {
-          "invoice_number": "AR-1018",
-          "amount": "4450.00"
-        },
-        {
           "invoice_number": "AR-1010",
           "amount": "22200.00"
+        },
+        {
+          "invoice_number": "AR-1018",
+          "amount": "4450.00"
         }
       ],
       "status_correct": true,
