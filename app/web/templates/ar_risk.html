@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}AR risk · AP Automation Agent{% endblock %}
 {% block content %}
+{% include "_ar_subnav.html" %}
 <div class="page-head">
   <h1>Late-payment risk</h1>
   <p class="muted">Per customer, as of <span class="mono">{{ as_of }}</span>. The score comes only from the fixed rules below;

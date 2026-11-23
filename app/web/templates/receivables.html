@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Receivables · AP Automation Agent{% endblock %}
+{% block content %}
+{% include "_ar_subnav.html" %}
+<div class="page-head">
+  <h1>Receivables</h1>
+  <p class="muted">Customer invoices, incoming payments, and follow-up, as of <span class="mono">{{ summary.as_of }}</span>.
+    Items marked for review wait for a person; nothing is posted or emailed on its own.</p>
+</div>
+
+<div class="stat-grid">
+  <a class="stat card" href="/receivables/invoices">
+    <span class="stat-label">Open customer invoices</span>
+    <span class="stat-value mono">{{ summary.open_count }}</span>
+    <span class="stat-sub mono">{{ summary.open_balance | money }} open</span>
+  </a>
+  <a class="stat card{% if summary.payments_review %} needs-human{% endif %}" href="/receivables/payments">
+    <span class="stat-label">Payments waiting for review</span>
+    <span class="stat-value mono">{{ summary.payments_review }}</span>
+    <span class="stat-sub">{{ summary.payments_unidentified }} unidentified</span>
+  </a>
+  <a class="stat card{% if summary.reminders_review %} needs-human{% endif %}" href="/receivables/reminders">
+    <span class="stat-label">Reminder drafts waiting</span>
+    <span class="stat-value mono">{{ summary.reminders_review }}</span>
+    <span class="stat-sub">never emailed</span>
+  </a>
+  <a class="stat card" href="/receivables/risk">
+    <span class="stat-label">High-risk customers</span>
+    <span class="stat-value mono">{{ summary.high_risk }}</span>
+    <span class="stat-sub">rule-based score</span>
+  </a>
+</div>
+
+<section class="card">
+  <h2>Go to</h2>
+  <ul class="link-list">
+    <li><a href="/receivables/invoices">Customer invoices</a> <span class="muted small">numbers, balances, and PDFs</span></li>
+    <li><a href="/receivables/payments">Payment matching</a> <span class="muted small">approve, edit, or reject matches the matcher could not post</span></li>
+    <li><a href="/receivables/aging">Aging</a> <span class="muted small">open balances by days past due, with CSV</span></li>
+    <li><a href="/receivables/risk">Risk</a> <span class="muted small">late-payment flags with written reasons</span></li>
+    <li><a href="/receivables/reminders">Reminders</a> <span class="muted small">collection drafts for review</span></li>
+  </ul>
+</section>
+{% endblock %}

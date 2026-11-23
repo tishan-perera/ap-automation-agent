@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block title %}Cash · AP Automation Agent{% endblock %}
+{% block content %}
+<div class="page-head row">
+  <div>
+    <h1>Cash</h1>
+    <p class="muted">Money in and money out from invoices and payments already in the app, as of
+      <span class="mono">{{ cash.as_of }}</span>. This is a list of stored amounts, not a forecast.</p>
+  </div>
+  <form method="get" action="/cash" class="chips">
+    <label class="small muted">As of <input type="date" name="as_of" value="{{ cash.as_of }}"></label>
+    <button type="submit" class="btn">Update</button>
+  </form>
+</div>
+
+{% set nh = cash.needs_human %}
+<nav class="chips" aria-label="Waiting for a person">
+  <a class="chip{% if nh.ap_review %} chip-needs-human{% endif %}" href="/queue">AP invoices to review <span class="chip-count mono">{{ nh.ap_review }}</span></a>
+  <a class="chip{% if nh.payments_review %} chip-needs-human{% endif %}" href="/receivables/payments">Payments to review <span class="chip-count mono">{{ nh.payments_review }}</span></a>
+  <a class="chip{% if nh.reminders_review %} chip-needs-human{% endif %}" href="/receivables/reminders">Reminder drafts <span class="chip-count mono">{{ nh.reminders_review }}</span></a>
+</nav>
+
+<div class="grid">
+  <section class="card">
+    <h2>Money in <span class="muted small">(receivables)</span></h2>
+    <dl class="figures">
+      <dt>Payments posted</dt>
+      <dd><span class="mono strong">{{ cash.received_total | money }}</span> <span class="muted small">{{ cash.received_count }} payments</span></dd>
+      <dt>Open invoices due {{ cash.as_of }} to {{ cash.window_end }}</dt>
+      <dd><span class="mono strong">{{ cash.ar_due_total | money }}</span> <span class="muted small">{{ cash.ar_due_count }} invoices</span></dd>
+      <dt>Already past due</dt>
+      <dd><span class="mono">{{ cash.ar_past_due_total | money }}</span></dd>
+    </dl>
+  </section>
+  <section class="card">
+    <h2>Money out <span class="muted small">(payables)</span></h2>
+    <dl class="figures">
+      <dt>Approved or exported bills</dt>
+      <dd><span class="mono strong">{{ cash.ap_done_total | money }}</span> <span class="muted small">{{ cash.ap_done_count }} bills</span></dd>
+      <dt>Bills in review due {{ cash.as_of }} to {{ cash.window_end }}</dt>
+      <dd><span class="mono strong">{{ cash.ap_due_total | money }}</span> <span class="muted small">{{ cash.ap_due_count }} bills</span></dd>
+      <dt>Bills in review already past due</dt>
+      <dd><span class="mono">{{ cash.ap_past_due_total | money }}</span></dd>
+    </dl>
+    <p class="muted small">This app approves and exports bills but does not record paying them, so "approved or exported" means approved to pay.</p>
+  </section>
+</div>
+
+<section class="card">
+  <h2>Next 30 days <span class="muted small mono">{{ cash.as_of }} to {{ cash.window_end }}</span></h2>
+  {% if cash.rows %}
+  <div class="table-wrap">
+  <table class="table compact">
+    <thead><tr><th>Due date</th><th>Direction</th><th>Reference</th><th>Customer or vendor</th><th class="num">Amount</th><th>Status</th></tr></thead>
+    <tbody>
+      {% for r in cash.rows %}
+      <tr{% if r.needs_human %} class="needs-human"{% endif %}>
+        <td class="mono">{{ r.day }}</td>
+        <td>{{ "In" if r.direction == "in" else "Out" }}</td>
+        <td class="mono"><a href="{{ r.link }}">{{ r.reference }}</a></td>
+        <td>{{ r.party }}</td>
+        <td class="num">{{ r.amount | money if r.amount is not none else "amount missing" }}</td>
+        <td><span class="status status-{{ r.status }}">{{ r.status | replace("_", " ") }}</span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  {% else %}
+  <p class="muted">Nothing falls due in this window. Try an earlier as-of date: the synthetic invoices fall due between September and November 2026.</p>
+  {% endif %}
+  {% if cash.missing_amount_count %}
+  <p class="muted small">{{ cash.missing_amount_count }} item(s) have no readable amount, so they are listed but left out of every total.</p>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h2>Undated <span class="muted small">({{ cash.undated | length }})</span></h2>
+  <p class="muted small">Items with no due date are never given a guessed date, so they are not in the 30-day list above.</p>
+  {% if cash.undated %}
+  <table class="table compact">
+    <thead><tr><th>Direction</th><th>Reference</th><th>Customer or vendor</th><th class="num">Amount</th><th>Status</th></tr></thead>
+    <tbody>
+      {% for r in cash.undated %}
+      <tr{% if r.needs_human %} class="needs-human"{% endif %}>
+        <td>{{ "In" if r.direction == "in" else "Out" }}</td>
+        <td class="mono"><a href="{{ r.link }}">{{ r.reference }}</a></td>
+        <td>{{ r.party }}</td>
+        <td class="num">{{ r.amount | money if r.amount is not none else "amount missing" }}</td>
+        <td><span class="status status-{{ r.status }}">{{ r.status | replace("_", " ") }}</span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h2>Recently posted payments</h2>
+  {% if cash.recent_payments %}
+  <table class="table compact">
+    <thead><tr><th>Date</th><th>Payment</th><th>Payer</th><th class="num">Amount</th></tr></thead>
+    <tbody>
+      {% for p in cash.recent_payments %}
+      <tr><td class="mono">{{ p.payment_date }}</td><td class="mono">{{ p.payment_ref }}</td>
+        <td>{{ p.payer_name_raw or "—" }}</td><td class="num">{{ p.amount | money }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}<p class="muted">No posted payments yet.</p>{% endif %}
+</section>
+{% endblock %}

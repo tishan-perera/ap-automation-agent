@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Customer invoices · AP Automation Agent{% endblock %}
+{% block content %}
+{% include "_ar_subnav.html" %}
+<div class="page-head">
+  <h1>Customer invoices</h1>
+  <p class="muted">Invoices created from fulfilled sales orders, numbered from AR-1001. Net 30 terms.</p>
+</div>
+
+{% if invoices %}
+<div class="table-wrap">
+<table class="table">
+  <thead>
+    <tr><th>Invoice</th><th>Customer</th><th>Invoice date</th><th>Due date</th>
+      <th class="num">Total</th><th class="num">Balance</th><th>Status</th><th>PDF</th></tr>
+  </thead>
+  <tbody>
+    {% for inv in invoices %}
+    <tr>
+      <td class="mono">{{ inv.invoice_number }}</td>
+      <td>{{ inv.customer_name }}</td>
+      <td class="mono">{{ inv.invoice_date }}</td>
+      <td class="mono">{{ inv.due_date or "—" }}</td>
+      <td class="num">{{ inv.total | money }}</td>
+      <td class="num">{{ inv.balance | money }}</td>
+      <td><span class="status status-{{ inv.status }}">{{ inv.status }}</span></td>
+      <td><a href="/api/ar/invoices/{{ inv.invoice_number }}/pdf" hx-boost="false" target="_blank" rel="noopener">PDF</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<p class="empty">No customer invoices yet.</p>
+{% endif %}
+{% endblock %}

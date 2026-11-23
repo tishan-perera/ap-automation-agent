@@ -14,6 +14,7 @@ from app.logging_setup import configure_logging
 from app.routers import ar, export, invoices
 from app.services.demo import bootstrap_ar_demo, bootstrap_demo
 from app.web import ar_routes as web_ar_routes
+from app.web import cash_routes as web_cash_routes
 from app.web import routes as web_routes
 
 logger = logging.getLogger(__name__)
@@ -52,6 +53,7 @@ app.include_router(export.router)
 app.include_router(ar.router)
 app.include_router(web_routes.router)
 app.include_router(web_ar_routes.router)
+app.include_router(web_cash_routes.router)
 
 
 @app.get("/health")

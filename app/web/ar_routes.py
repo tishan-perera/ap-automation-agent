@@ -1,4 +1,4 @@
-"""Simple AR HTML pages: payment review, aging, risk flags, and reminder drafts.
+"""Receivables HTML pages: overview, customer invoices, payment review, aging, risk, reminders.
 
 Plain on purpose: the branded Receivables tab is built in Phase 15.
 """
@@ -12,12 +12,13 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db import get_session
-from app.models_ar import BankPayment
+from app.models_ar import ARInvoice, BankPayment
 from app.routers.ar import payment_or_404, reminder_or_404
 from app.services import collections
 from app.services.ar import payment_review
 from app.services.ar.aging import BUCKETS, build_aging, resolve_as_of
 from app.services.ar.risk import INVOICES_30_PLUS_CAP, POINTS, assess_risk
+from app.services.ar.summary import receivables_summary
 from app.services.review import ReviewError
 from app.web.routes import templates
 
@@ -184,3 +185,15 @@ def edit_reminder(
     subject: Annotated[str, Form()] = "", body: Annotated[str, Form()] = "",
 ):  # fmt: skip
     return _reminder_act(request, session, reminder_id, "edited", collections.edit, subject, body)
+
+
+@router.get("/receivables", response_class=HTMLResponse)
+def receivables_home(request: Request, session: SessionDep):
+    summary = receivables_summary(session, resolve_as_of())
+    return templates.TemplateResponse(request, "receivables.html", {"summary": summary})
+
+
+@router.get("/receivables/invoices", response_class=HTMLResponse)
+def customer_invoices(request: Request, session: SessionDep):
+    invoices = session.scalars(select(ARInvoice).order_by(ARInvoice.invoice_number)).all()
+    return templates.TemplateResponse(request, "ar_invoices.html", {"invoices": invoices})

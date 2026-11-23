@@ -14,7 +14,7 @@
 {% if notice %}<div class="banner banner-ok" role="status">{{ notice }}</div>{% endif %}
 {% if error %}<div class="banner banner-error" role="alert">{{ error }}</div>{% endif %}
 
-<section class="card {% if invoice.exception_reasons %}card-warn{% endif %}">
+<section class="card {% if invoice.exception_reasons and invoice.status == "needs_review" %}card-warn{% endif %}">
   <h2>Exceptions</h2>
   {% if invoice.exception_reasons %}
     <ul class="reasons">{% for reason in invoice.exception_reasons %}<li>{{ reason }}</li>{% endfor %}</ul>

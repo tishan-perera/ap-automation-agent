@@ -1,0 +1,6 @@
+{% set ar_path = request.url.path %}
+<nav class="subnav" aria-label="Receivables">
+  {% for href, label in [("/receivables", "Overview"), ("/receivables/invoices", "Customer invoices"), ("/receivables/payments", "Payment matching"), ("/receivables/aging", "Aging"), ("/receivables/risk", "Risk"), ("/receivables/reminders", "Reminders")] %}
+  <a href="{{ href }}" class="subnav-link{% if ar_path == href %} subnav-active{% endif %}"{% if ar_path == href %} aria-current="page"{% endif %}>{{ label }}</a>
+  {% endfor %}
+</nav>

@@ -10,20 +10,23 @@
   <script src="https://unpkg.com/htmx.org@2.0.4" defer></script>
 </head>
 <body hx-boost="true">
+  {% set path = request.url.path %}
+  {% if path.startswith("/receivables") %}{% set tab = "receivables" %}
+  {% elif path.startswith("/cash") %}{% set tab = "cash" %}
+  {% elif path.startswith("/settings") %}{% set tab = "settings" %}
+  {% else %}{% set tab = "payables" %}{% endif %}
   <header class="topbar">
     <a class="brand" href="/queue">AP Automation Agent</a>
-    <nav>
-      <a href="/queue">Approval queue</a>
-      <a href="/receivables/payments">Payment review</a>
-      <a href="/receivables/aging">AR aging</a>
-      <a href="/receivables/risk">AR risk</a>
-      <a href="/receivables/reminders">Reminders</a>
-      <a href="/settings">Settings</a>
+    <nav class="tabs" aria-label="Main">
+      {% for key, href, label in [("payables", "/queue", "Payables"), ("receivables", "/receivables", "Receivables"), ("cash", "/cash", "Cash")] %}
+      <a href="{{ href }}" class="tab{% if tab == key %} tab-active{% endif %}"{% if tab == key %} aria-current="page"{% endif %}>{{ label }}</a>
+      {% endfor %}
+      <a href="/settings" class="tab tab-quiet{% if tab == 'settings' %} tab-active{% endif %}"{% if tab == 'settings' %} aria-current="page"{% endif %}>Settings</a>
     </nav>
   </header>
   <main class="page">
     {% block content %}{% endblock %}
   </main>
-  <footer class="footer">Synthetic demo data only. Every vendor and invoice is fictional.</footer>
+  <footer class="footer">Synthetic demo data only. Every vendor, customer, and invoice is fictional.</footer>
 </body>
 </html>
