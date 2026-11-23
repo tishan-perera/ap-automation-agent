@@ -1,0 +1,512 @@
+[
+  {
+    "order_number": "SO-5001",
+    "customer_account": "C-1001",
+    "order_date": "2026-08-03",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "6600.00",
+    "line_items": [
+      {
+        "description": "Onsite training session",
+        "quantity": 3,
+        "unit_price": "1200.00",
+        "amount": "3600.00"
+      },
+      {
+        "description": "Managed IT support, monthly",
+        "quantity": 2,
+        "unit_price": "850.00",
+        "amount": "1700.00"
+      },
+      {
+        "description": "Help desk hours, block of 10",
+        "quantity": 2,
+        "unit_price": "650.00",
+        "amount": "1300.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5002",
+    "customer_account": "C-1002",
+    "order_date": "2026-08-05",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "1875.00",
+    "line_items": [
+      {
+        "description": "Hardware maintenance visit",
+        "quantity": 5,
+        "unit_price": "375.00",
+        "amount": "1875.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5003",
+    "customer_account": "C-1003",
+    "order_date": "2026-08-07",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "285.00",
+    "line_items": [
+      {
+        "description": "Laptop setup and imaging",
+        "quantity": 3,
+        "unit_price": "95.00",
+        "amount": "285.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5004",
+    "customer_account": "C-1004",
+    "order_date": "2026-08-09",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "3600.00",
+    "line_items": [
+      {
+        "description": "Help desk hours, block of 10",
+        "quantity": 3,
+        "unit_price": "650.00",
+        "amount": "1950.00"
+      },
+      {
+        "description": "Network security review",
+        "quantity": 1,
+        "unit_price": "1650.00",
+        "amount": "1650.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5005",
+    "customer_account": "C-1005",
+    "order_date": "2026-08-11",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "5100.00",
+    "line_items": [
+      {
+        "description": "Managed IT support, monthly",
+        "quantity": 6,
+        "unit_price": "850.00",
+        "amount": "5100.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5006",
+    "customer_account": "C-1006",
+    "order_date": "2026-08-13",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "1840.00",
+    "line_items": [
+      {
+        "description": "Cloud backup, monthly",
+        "quantity": 3,
+        "unit_price": "180.00",
+        "amount": "540.00"
+      },
+      {
+        "description": "Help desk hours, block of 10",
+        "quantity": 2,
+        "unit_price": "650.00",
+        "amount": "1300.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5007",
+    "customer_account": "C-1007",
+    "order_date": "2026-08-15",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "960.00",
+    "line_items": [
+      {
+        "description": "Software license, annual seat",
+        "quantity": 4,
+        "unit_price": "240.00",
+        "amount": "960.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5008",
+    "customer_account": "C-1008",
+    "order_date": "2026-08-17",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "2550.00",
+    "line_items": [
+      {
+        "description": "Managed IT support, monthly",
+        "quantity": 3,
+        "unit_price": "850.00",
+        "amount": "2550.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5009",
+    "customer_account": "C-1001",
+    "order_date": "2026-08-24",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "7200.00",
+    "line_items": [
+      {
+        "description": "Onsite training session",
+        "quantity": 6,
+        "unit_price": "1200.00",
+        "amount": "7200.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5010",
+    "customer_account": "C-1002",
+    "order_date": "2026-08-26",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "22200.00",
+    "line_items": [
+      {
+        "description": "Managed IT support, monthly",
+        "quantity": 6,
+        "unit_price": "850.00",
+        "amount": "5100.00"
+      },
+      {
+        "description": "Network security review",
+        "quantity": 6,
+        "unit_price": "1650.00",
+        "amount": "9900.00"
+      },
+      {
+        "description": "Onsite training session",
+        "quantity": 6,
+        "unit_price": "1200.00",
+        "amount": "7200.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5011",
+    "customer_account": "C-1003",
+    "order_date": "2026-08-28",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "1920.00",
+    "line_items": [
+      {
+        "description": "Software license, annual seat",
+        "quantity": 3,
+        "unit_price": "240.00",
+        "amount": "720.00"
+      },
+      {
+        "description": "Onsite training session",
+        "quantity": 1,
+        "unit_price": "1200.00",
+        "amount": "1200.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5012",
+    "customer_account": "C-1004",
+    "order_date": "2026-08-30",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "6620.00",
+    "line_items": [
+      {
+        "description": "Cloud backup, monthly",
+        "quantity": 4,
+        "unit_price": "180.00",
+        "amount": "720.00"
+      },
+      {
+        "description": "Network security review",
+        "quantity": 1,
+        "unit_price": "1650.00",
+        "amount": "1650.00"
+      },
+      {
+        "description": "Managed IT support, monthly",
+        "quantity": 5,
+        "unit_price": "850.00",
+        "amount": "4250.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5013",
+    "customer_account": "C-1005",
+    "order_date": "2026-09-01",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "1650.00",
+    "line_items": [
+      {
+        "description": "Network security review",
+        "quantity": 1,
+        "unit_price": "1650.00",
+        "amount": "1650.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5014",
+    "customer_account": "C-1006",
+    "order_date": "2026-09-03",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "7500.00",
+    "line_items": [
+      {
+        "description": "Help desk hours, block of 10",
+        "quantity": 6,
+        "unit_price": "650.00",
+        "amount": "3900.00"
+      },
+      {
+        "description": "Onsite training session",
+        "quantity": 3,
+        "unit_price": "1200.00",
+        "amount": "3600.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5015",
+    "customer_account": "C-1007",
+    "order_date": "2026-09-05",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "13150.00",
+    "line_items": [
+      {
+        "description": "Network security review",
+        "quantity": 6,
+        "unit_price": "1650.00",
+        "amount": "9900.00"
+      },
+      {
+        "description": "Help desk hours, block of 10",
+        "quantity": 5,
+        "unit_price": "650.00",
+        "amount": "3250.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5016",
+    "customer_account": "C-1008",
+    "order_date": "2026-09-07",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "7550.00",
+    "line_items": [
+      {
+        "description": "Network security review",
+        "quantity": 2,
+        "unit_price": "1650.00",
+        "amount": "3300.00"
+      },
+      {
+        "description": "Managed IT support, monthly",
+        "quantity": 5,
+        "unit_price": "850.00",
+        "amount": "4250.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5017",
+    "customer_account": "C-1001",
+    "order_date": "2026-09-14",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "3225.00",
+    "line_items": [
+      {
+        "description": "Onsite training session",
+        "quantity": 1,
+        "unit_price": "1200.00",
+        "amount": "1200.00"
+      },
+      {
+        "description": "Network security review",
+        "quantity": 1,
+        "unit_price": "1650.00",
+        "amount": "1650.00"
+      },
+      {
+        "description": "Hardware maintenance visit",
+        "quantity": 1,
+        "unit_price": "375.00",
+        "amount": "375.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5018",
+    "customer_account": "C-1002",
+    "order_date": "2026-09-16",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "4450.00",
+    "line_items": [
+      {
+        "description": "Laptop setup and imaging",
+        "quantity": 5,
+        "unit_price": "95.00",
+        "amount": "475.00"
+      },
+      {
+        "description": "Onsite training session",
+        "quantity": 3,
+        "unit_price": "1200.00",
+        "amount": "3600.00"
+      },
+      {
+        "description": "Hardware maintenance visit",
+        "quantity": 1,
+        "unit_price": "375.00",
+        "amount": "375.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5019",
+    "customer_account": "C-1003",
+    "order_date": "2026-09-18",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "95.00",
+    "line_items": [
+      {
+        "description": "Laptop setup and imaging",
+        "quantity": 1,
+        "unit_price": "95.00",
+        "amount": "95.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5020",
+    "customer_account": "C-1004",
+    "order_date": "2026-09-20",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "11200.00",
+    "line_items": [
+      {
+        "description": "Help desk hours, block of 10",
+        "quantity": 2,
+        "unit_price": "650.00",
+        "amount": "1300.00"
+      },
+      {
+        "description": "Network security review",
+        "quantity": 6,
+        "unit_price": "1650.00",
+        "amount": "9900.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5021",
+    "customer_account": "C-1005",
+    "order_date": "2026-09-22",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "4800.00",
+    "line_items": [
+      {
+        "description": "Onsite training session",
+        "quantity": 4,
+        "unit_price": "1200.00",
+        "amount": "4800.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5022",
+    "customer_account": "C-1006",
+    "order_date": "2026-09-24",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "14550.00",
+    "line_items": [
+      {
+        "description": "Onsite training session",
+        "quantity": 2,
+        "unit_price": "1200.00",
+        "amount": "2400.00"
+      },
+      {
+        "description": "Network security review",
+        "quantity": 5,
+        "unit_price": "1650.00",
+        "amount": "8250.00"
+      },
+      {
+        "description": "Help desk hours, block of 10",
+        "quantity": 6,
+        "unit_price": "650.00",
+        "amount": "3900.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5023",
+    "customer_account": "C-1007",
+    "order_date": "2026-09-26",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "650.00",
+    "line_items": [
+      {
+        "description": "Help desk hours, block of 10",
+        "quantity": 1,
+        "unit_price": "650.00",
+        "amount": "650.00"
+      }
+    ]
+  },
+  {
+    "order_number": "SO-5024",
+    "customer_account": "C-1008",
+    "order_date": "2026-09-28",
+    "currency": "USD",
+    "status": "fulfilled",
+    "expected_total": "8480.00",
+    "line_items": [
+      {
+        "description": "Help desk hours, block of 10",
+        "quantity": 4,
+        "unit_price": "650.00",
+        "amount": "2600.00"
+      },
+      {
+        "description": "Onsite training session",
+        "quantity": 4,
+        "unit_price": "1200.00",
+        "amount": "4800.00"
+      },
+      {
+        "description": "Cloud backup, monthly",
+        "quantity": 6,
+        "unit_price": "180.00",
+        "amount": "1080.00"
+      }
+    ]
+  }
+]

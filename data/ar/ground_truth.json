@@ -1,0 +1,195 @@
+{
+  "BP-0001": {
+    "case_type": "exact_invoice_number",
+    "expected_status": "posted",
+    "expected_match_kind": "invoice_number",
+    "expected_customer_account": "C-1001",
+    "applications": [
+      {
+        "invoice_number": "AR-1001",
+        "amount": "6600.00"
+      }
+    ],
+    "unapplied_amount": "0.00"
+  },
+  "BP-0002": {
+    "case_type": "exact_invoice_number",
+    "expected_status": "posted",
+    "expected_match_kind": "invoice_number",
+    "expected_customer_account": "C-1002",
+    "applications": [
+      {
+        "invoice_number": "AR-1002",
+        "amount": "1875.00"
+      }
+    ],
+    "unapplied_amount": "0.00"
+  },
+  "BP-0003": {
+    "case_type": "exact_invoice_number",
+    "expected_status": "posted",
+    "expected_match_kind": "invoice_number",
+    "expected_customer_account": "C-1003",
+    "applications": [
+      {
+        "invoice_number": "AR-1003",
+        "amount": "285.00"
+      }
+    ],
+    "unapplied_amount": "0.00"
+  },
+  "BP-0004": {
+    "case_type": "exact_invoice_number",
+    "expected_status": "posted",
+    "expected_match_kind": "invoice_number",
+    "expected_customer_account": "C-1004",
+    "applications": [
+      {
+        "invoice_number": "AR-1004",
+        "amount": "3600.00"
+      }
+    ],
+    "unapplied_amount": "0.00"
+  },
+  "BP-0005": {
+    "case_type": "exact_invoice_number",
+    "expected_status": "posted",
+    "expected_match_kind": "invoice_number",
+    "expected_customer_account": "C-1005",
+    "applications": [
+      {
+        "invoice_number": "AR-1005",
+        "amount": "5100.00"
+      }
+    ],
+    "unapplied_amount": "0.00"
+  },
+  "BP-0006": {
+    "case_type": "messy_memo",
+    "expected_status": "posted",
+    "expected_match_kind": "invoice_number",
+    "expected_customer_account": "C-1006",
+    "applications": [
+      {
+        "invoice_number": "AR-1006",
+        "amount": "1840.00"
+      }
+    ],
+    "unapplied_amount": "0.00"
+  },
+  "BP-0007": {
+    "case_type": "messy_memo",
+    "expected_status": "posted",
+    "expected_match_kind": "amount_and_customer",
+    "expected_customer_account": "C-1008",
+    "applications": [
+      {
+        "invoice_number": "AR-1008",
+        "amount": "2550.00"
+      }
+    ],
+    "unapplied_amount": "0.00"
+  },
+  "BP-0008": {
+    "case_type": "messy_memo",
+    "expected_status": "posted",
+    "expected_match_kind": "invoice_number",
+    "expected_customer_account": "C-1007",
+    "applications": [
+      {
+        "invoice_number": "AR-1007",
+        "amount": "960.00"
+      }
+    ],
+    "unapplied_amount": "0.00"
+  },
+  "BP-0009": {
+    "case_type": "overpayment",
+    "expected_status": "needs_review",
+    "expected_match_kind": "overpayment",
+    "expected_customer_account": "C-1004",
+    "applications": [
+      {
+        "invoice_number": "AR-1012",
+        "amount": "6620.00"
+      }
+    ],
+    "unapplied_amount": "25.00"
+  },
+  "BP-0010": {
+    "case_type": "partial",
+    "expected_status": "needs_review",
+    "expected_match_kind": "partial",
+    "expected_customer_account": "C-1006",
+    "applications": [
+      {
+        "invoice_number": "AR-1014",
+        "amount": "3000.00"
+      }
+    ],
+    "unapplied_amount": "0.00"
+  },
+  "BP-0011": {
+    "case_type": "unidentified",
+    "expected_status": "unidentified",
+    "expected_match_kind": "unidentified",
+    "expected_customer_account": null,
+    "applications": [],
+    "unapplied_amount": "517.38"
+  },
+  "BP-0012": {
+    "case_type": "multi_invoice",
+    "expected_status": "posted",
+    "expected_match_kind": "split",
+    "expected_customer_account": "C-1002",
+    "applications": [
+      {
+        "invoice_number": "AR-1010",
+        "amount": "22200.00"
+      },
+      {
+        "invoice_number": "AR-1018",
+        "amount": "4450.00"
+      }
+    ],
+    "unapplied_amount": "0.00"
+  },
+  "BP-0013": {
+    "case_type": "multi_invoice",
+    "expected_status": "needs_review",
+    "expected_match_kind": "split",
+    "expected_customer_account": "C-1003",
+    "applications": [
+      {
+        "invoice_number": "AR-1011",
+        "amount": "1920.00"
+      },
+      {
+        "invoice_number": "AR-1019",
+        "amount": "95.00"
+      }
+    ],
+    "unapplied_amount": "0.00"
+  },
+  "BP-0014": {
+    "case_type": "partial",
+    "expected_status": "needs_review",
+    "expected_match_kind": "partial",
+    "expected_customer_account": "C-1006",
+    "applications": [
+      {
+        "invoice_number": "AR-1014",
+        "amount": "2250.00"
+      }
+    ],
+    "unapplied_amount": "0.00"
+  },
+  "BP-0015": {
+    "case_type": "unidentified",
+    "expected_status": "unidentified",
+    "expected_match_kind": "unidentified",
+    "expected_customer_account": null,
+    "applications": [],
+    "unapplied_amount": "1234.56"
+  }
+}

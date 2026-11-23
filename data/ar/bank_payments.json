@@ -1,0 +1,122 @@
+[
+  {
+    "payment_ref": "BP-0001",
+    "payment_date": "2026-08-24",
+    "amount": "6600.00",
+    "currency": "USD",
+    "memo": "Payment for AR-1001",
+    "payer_name_raw": "AMBERFIELD CLINICS LLC"
+  },
+  {
+    "payment_ref": "BP-0002",
+    "payment_date": "2026-08-27",
+    "amount": "1875.00",
+    "currency": "USD",
+    "memo": "AR-1002",
+    "payer_name_raw": "BLUE HARBOR RETAIL GROUP"
+  },
+  {
+    "payment_ref": "BP-0003",
+    "payment_date": "2026-08-30",
+    "amount": "285.00",
+    "currency": "USD",
+    "memo": "INVOICE AR-1003",
+    "payer_name_raw": "PINECREST LEARNING CO"
+  },
+  {
+    "payment_ref": "BP-0004",
+    "payment_date": "2026-09-02",
+    "amount": "3600.00",
+    "currency": "USD",
+    "memo": "Remittance AR-1004",
+    "payer_name_raw": "RIVERSTONE FACILITIES"
+  },
+  {
+    "payment_ref": "BP-0005",
+    "payment_date": "2026-09-05",
+    "amount": "5100.00",
+    "currency": "USD",
+    "memo": "Pay AR-1005 via ACH",
+    "payer_name_raw": "CEDAR AND ELM WHOLESALE"
+  },
+  {
+    "payment_ref": "BP-0006",
+    "payment_date": "2026-09-09",
+    "amount": "1840.00",
+    "currency": "USD",
+    "memo": "Thanks so much! AR1006",
+    "payer_name_raw": "NORTHLAKE STUDIO LLC"
+  },
+  {
+    "payment_ref": "BP-0007",
+    "payment_date": "2026-09-15",
+    "amount": "2550.00",
+    "currency": "USD",
+    "memo": "PMT AR-10",
+    "payer_name_raw": "MAPLE PINE LOGISTICS"
+  },
+  {
+    "payment_ref": "BP-0008",
+    "payment_date": "2026-09-17",
+    "amount": "960.00",
+    "currency": "USD",
+    "memo": "inv 1007 thx",
+    "payer_name_raw": "HARBORVIEW DENTAL GRP"
+  },
+  {
+    "payment_ref": "BP-0009",
+    "payment_date": "2026-09-25",
+    "amount": "6645.00",
+    "currency": "USD",
+    "memo": "Payment AR-1012",
+    "payer_name_raw": "RIVERSTONE FACILITIES"
+  },
+  {
+    "payment_ref": "BP-0010",
+    "payment_date": "2026-10-03",
+    "amount": "3000.00",
+    "currency": "USD",
+    "memo": "Partial payment AR-1014",
+    "payer_name_raw": "NORTHLAKE STUDIO LLC"
+  },
+  {
+    "payment_ref": "BP-0011",
+    "payment_date": "2026-10-12",
+    "amount": "517.38",
+    "currency": "USD",
+    "memo": "",
+    "payer_name_raw": ""
+  },
+  {
+    "payment_ref": "BP-0012",
+    "payment_date": "2026-10-13",
+    "amount": "26650.00",
+    "currency": "USD",
+    "memo": "AR-1010, AR-1018",
+    "payer_name_raw": "BLUE HARBOR RETAIL GROUP"
+  },
+  {
+    "payment_ref": "BP-0013",
+    "payment_date": "2026-10-17",
+    "amount": "2015.00",
+    "currency": "USD",
+    "memo": "Monthly remittance",
+    "payer_name_raw": "PINECREST LEARNING CO"
+  },
+  {
+    "payment_ref": "BP-0014",
+    "payment_date": "2026-10-25",
+    "amount": "2250.00",
+    "currency": "USD",
+    "memo": "Partial payment AR-1014",
+    "payer_name_raw": "NORTHLAKE STUDIO LLC"
+  },
+  {
+    "payment_ref": "BP-0015",
+    "payment_date": "2026-10-27",
+    "amount": "1234.56",
+    "currency": "USD",
+    "memo": "ONLINE TRANSFER REF 88213",
+    "payer_name_raw": "ACH CREDIT"
+  }
+]

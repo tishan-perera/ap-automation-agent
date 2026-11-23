@@ -1,0 +1,58 @@
+[
+  {
+    "account_number": "C-1001",
+    "name": "Amberfield Clinics LLC",
+    "billing_email": "billing@amberfield-clinics.example",
+    "payment_terms": "Net 30",
+    "notes": "Synthetic demo customer."
+  },
+  {
+    "account_number": "C-1002",
+    "name": "Blue Harbor Retail Group",
+    "billing_email": "ap@blueharbor-retail.example",
+    "payment_terms": "Net 30",
+    "notes": "Synthetic demo customer."
+  },
+  {
+    "account_number": "C-1003",
+    "name": "Pinecrest Learning Co",
+    "billing_email": null,
+    "payment_terms": "Net 30",
+    "notes": "Synthetic demo customer."
+  },
+  {
+    "account_number": "C-1004",
+    "name": "Riverstone Facilities LLC",
+    "billing_email": "accounts@riverstone-facilities.example",
+    "payment_terms": "Net 30",
+    "notes": "Synthetic demo customer."
+  },
+  {
+    "account_number": "C-1005",
+    "name": "Cedar & Elm Wholesale",
+    "billing_email": "payables@cedar-elm.example",
+    "payment_terms": "Net 30",
+    "notes": "Synthetic demo customer."
+  },
+  {
+    "account_number": "C-1006",
+    "name": "Northlake Studio LLC",
+    "billing_email": "studio@northlake.example",
+    "payment_terms": "Net 30",
+    "notes": "Synthetic demo customer."
+  },
+  {
+    "account_number": "C-1007",
+    "name": "Harborview Dental Group",
+    "billing_email": null,
+    "payment_terms": "Net 30",
+    "notes": "Synthetic demo customer."
+  },
+  {
+    "account_number": "C-1008",
+    "name": "Maple & Pine Logistics",
+    "billing_email": "finance@maple-pine.example",
+    "payment_terms": "Net 30",
+    "notes": "Synthetic demo customer."
+  }
+]
