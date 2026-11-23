@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}AR aging · AP Automation Agent{% endblock %}
+{% block content %}
+<div class="page-head row">
+  <div>
+    <h1>AR aging</h1>
+    <p class="muted">Open customer balances by days past due, as of <span class="mono">{{ report.as_of }}</span>.
+      Only open and partially paid invoices are included. Viewing or downloading this report changes nothing.</p>
+  </div>
+  {# A plain download: hx-boost="false" so htmx does not swap the CSV into the page. #}
+  <a class="btn" href="/api/ar/aging.csv?as_of={{ report.as_of }}" hx-boost="false" download>Download CSV</a>
+</div>
+
+<form method="get" action="/receivables/aging" class="chips">
+  <label class="small muted">As of <input type="date" name="as_of" value="{{ report.as_of }}"></label>
+  <button type="submit" class="btn">Update</button>
+</form>
+
+<section class="card">
+  <h2>Totals by bucket</h2>
+  <table class="table compact">
+    <thead><tr><th>Bucket</th><th class="num">Invoices</th><th class="num">Open balance</th></tr></thead>
+    <tbody>
+      {% for name in buckets %}{% set b = report.bucket_totals[name] %}
+      <tr><td>{{ name }}</td><td class="num">{{ b.count }}</td><td class="num">{{ b.balance | money }}</td></tr>
+      {% endfor %}
+      <tr><td class="strong">Total</td><td class="num strong">{{ report.rows | length }}</td><td class="num strong">{{ report.total | money }}</td></tr>
+    </tbody>
+  </table>
+  <p class="muted small">Buckets: current means not yet past due; 1-30, 31-60 and 61-90 are days past due (90 days late is still 61-90); 90+ means 91 or more days past due.</p>
+</section>
+
+<section class="card">
+  <h2>By customer</h2>
+  {% if report.customers %}
+  <div class="table-wrap">
+  <table class="table compact">
+    <thead><tr><th>Customer</th>{% for name in buckets %}<th class="num">{{ name }}</th>{% endfor %}<th class="num">Total</th></tr></thead>
+    <tbody>
+      {% for c in report.customers %}
+      <tr>
+        <td>{{ c.customer_name }} <span class="muted mono small">{{ c.customer_account }}</span></td>
+        {% for name in buckets %}<td class="num">{{ c.buckets[name] | money if c.buckets[name] else "—" }}</td>{% endfor %}
+        <td class="num strong">{{ c.total | money }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  {% else %}<p class="muted">No open balances.</p>{% endif %}
+</section>
+
+<section class="card">
+  <h2>Invoices</h2>
+  {% if report.rows %}
+  <div class="table-wrap">
+  <table class="table compact">
+    <thead><tr><th>Customer</th><th>Invoice</th><th>Invoice date</th><th>Due date</th>
+      <th class="num">Original total</th><th class="num">Balance</th><th class="num">Days past due</th><th>Bucket</th></tr></thead>
+    <tbody>
+      {% for r in report.rows %}
+      <tr>
+        <td>{{ r.customer_name }}</td>
+        <td class="mono">{{ r.invoice_number }}</td>
+        <td class="mono">{{ r.invoice_date }}</td>
+        <td class="mono">{{ r.due_date }}</td>
+        <td class="num">{{ r.original_total | money }}</td>
+        <td class="num strong">{{ r.balance | money }}</td>
+        <td class="num">{{ r.days_past_due }}</td>
+        <td>{{ r.bucket }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  {% else %}<p class="muted">No open balances.</p>{% endif %}
+</section>
+{% endblock %}

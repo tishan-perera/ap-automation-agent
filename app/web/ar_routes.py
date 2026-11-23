@@ -1,8 +1,9 @@
-"""Simple HTML review page for bank payments that need a person.
+"""Simple AR HTML pages: the payment review queue and the aging report.
 
 Plain on purpose: the branded Receivables tab is built in Phase 15.
 """
 
+from datetime import date
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Form, Request, status
@@ -14,6 +15,7 @@ from app.db import get_session
 from app.models_ar import BankPayment
 from app.routers.ar import payment_or_404
 from app.services.ar import payment_review
+from app.services.ar.aging import BUCKETS, build_aging, resolve_as_of
 from app.services.review import ReviewError
 from app.web.routes import templates
 
@@ -93,3 +95,11 @@ def edit(
     except ReviewError as exc:
         return _page(request, session, error=exc.message, status_code=exc.status_code)
     return _act(request, session, payment_ref, "edited", payment_review.edit, rows)
+
+
+@router.get("/receivables/aging", response_class=HTMLResponse)
+def aging_page(request: Request, session: SessionDep, as_of: date | None = None):
+    """Read-only: viewing the report never changes an invoice or writes an audit row."""
+    report = build_aging(session, resolve_as_of(as_of))
+    context = {"report": report, "buckets": BUCKETS}
+    return templates.TemplateResponse(request, "ar_aging.html", context)

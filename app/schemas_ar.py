@@ -84,3 +84,45 @@ class ApplicationIn(BaseModel):
 
 class EditIn(BaseModel):
     applications: list[ApplicationIn]
+
+
+class AgingRowOut(BaseModel):
+    model_config = {"from_attributes": True}
+
+    customer_account: str
+    customer_name: str
+    invoice_number: str
+    invoice_date: date
+    due_date: date
+    original_total: Decimal
+    balance: Decimal
+    days_past_due: int
+    bucket: str
+
+
+class BucketTotalOut(BaseModel):
+    model_config = {"from_attributes": True}
+
+    count: int
+    balance: Decimal
+
+
+class CustomerAgingOut(BaseModel):
+    model_config = {"from_attributes": True}
+
+    customer_account: str
+    customer_name: str
+    buckets: dict[str, Decimal]
+    total: Decimal
+
+
+class AgingReportOut(BaseModel):
+    """AR aging as of one date. Read-only: building it changes nothing."""
+
+    model_config = {"from_attributes": True}
+
+    as_of: date
+    rows: list[AgingRowOut]
+    bucket_totals: dict[str, BucketTotalOut]
+    customers: list[CustomerAgingOut]
+    total: Decimal

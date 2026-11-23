@@ -34,7 +34,7 @@ FORMULA_PREFIXES = ("=", "+", "-", "@", "\t", "\r")
 DEFAULT_ACTOR = "ap-specialist"
 
 
-def _safe_text(value: str | None) -> str:
+def safe_text(value: str | None) -> str:
     text = value or ""
     return f"'{text}" if text.startswith(FORMULA_PREFIXES) else text
 
@@ -73,7 +73,7 @@ def invoice_rows(invoice: Invoice) -> list[dict[str, str]]:
     for description, amount in lines:
         row = {**base, "LineDescription": description, "LineAmount": _amount(amount)}
         rows.append(
-            {col: _safe_text(row[col]) if col in TEXT_COLUMNS else row[col] for col in HEADER}
+            {col: safe_text(row[col]) if col in TEXT_COLUMNS else row[col] for col in HEADER}
         )
     return rows
 

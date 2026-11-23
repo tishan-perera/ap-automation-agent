@@ -1,5 +1,6 @@
 """Application settings loaded from environment variables and an optional .env file."""
 
+from datetime import date
 from decimal import Decimal
 from functools import lru_cache
 
@@ -31,6 +32,8 @@ class Settings(BaseSettings):
     invoices_dir: str = "data/invoices"
     ar_data_dir: str = "data/ar"
     ar_invoices_dir: str = "data/ar/invoices"
+    # Optional fixed date for AR aging (YYYY-MM-DD). Unset means today in UTC.
+    ar_report_as_of: date | None = None
 
 
 @lru_cache

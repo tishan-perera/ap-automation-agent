@@ -1,17 +1,26 @@
 """JSON API for AR invoices. The branded Receivables tab comes in a later phase."""
 
+from datetime import date
 from pathlib import Path
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db import get_session
 from app.models_ar import ARInvoice, BankPayment
-from app.schemas_ar import ARInvoiceDetail, ARInvoiceSummary, BankPaymentOut, EditIn, RejectIn
+from app.schemas_ar import (
+    AgingReportOut,
+    ARInvoiceDetail,
+    ARInvoiceSummary,
+    BankPaymentOut,
+    EditIn,
+    RejectIn,
+)
 from app.services.ar import payment_review
+from app.services.ar.aging import aging_csv, build_aging, resolve_as_of
 from app.services.review import ReviewError
 
 router = APIRouter(prefix="/api/ar", tags=["accounts receivable"])
@@ -96,3 +105,22 @@ def reject_payment(payment_ref: str, body: RejectIn, session: SessionDep) -> Ban
 def edit_payment(payment_ref: str, body: EditIn, session: SessionDep) -> BankPayment:
     rows = [(a.invoice_number, a.amount) for a in body.applications]
     return _review(session, payment_or_404(session, payment_ref), payment_review.edit, rows)
+
+
+# --- AR aging (read-only: these GETs never change invoices or write audit rows) ---
+
+
+@router.get("/aging", response_model=AgingReportOut)
+def get_aging(session: SessionDep, as_of: date | None = None):
+    return build_aging(session, resolve_as_of(as_of))
+
+
+@router.get("/aging.csv")
+def download_aging_csv(session: SessionDep, as_of: date | None = None) -> Response:
+    report = build_aging(session, resolve_as_of(as_of))
+    filename = f"ar-aging-{report.as_of.isoformat()}.csv"
+    return Response(
+        content=aging_csv(report),
+        media_type="text/csv",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
