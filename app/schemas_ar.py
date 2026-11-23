@@ -126,3 +126,17 @@ class AgingReportOut(BaseModel):
     bucket_totals: dict[str, BucketTotalOut]
     customers: list[CustomerAgingOut]
     total: Decimal
+
+
+class RiskOut(BaseModel):
+    """A customer's late-payment risk. Score and level come only from the rules."""
+
+    model_config = {"from_attributes": True}
+
+    customer_account: str
+    customer_name: str
+    as_of: date
+    score: int
+    level: str
+    rule_codes: list[str]
+    explanation: str

@@ -18,9 +18,11 @@ from app.schemas_ar import (
     BankPaymentOut,
     EditIn,
     RejectIn,
+    RiskOut,
 )
 from app.services.ar import payment_review
 from app.services.ar.aging import aging_csv, build_aging, resolve_as_of
+from app.services.ar.risk import assess_risk
 from app.services.review import ReviewError
 
 router = APIRouter(prefix="/api/ar", tags=["accounts receivable"])
@@ -124,3 +126,11 @@ def download_aging_csv(session: SessionDep, as_of: date | None = None) -> Respon
         media_type="text/csv",
         headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
+
+
+# --- Late-payment risk (computed on demand; read-only) ---
+
+
+@router.get("/risk", response_model=list[RiskOut])
+def get_risk(session: SessionDep, as_of: date | None = None):
+    return assess_risk(session, resolve_as_of(as_of))

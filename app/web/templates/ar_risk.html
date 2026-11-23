@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}AR risk · AP Automation Agent{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Late-payment risk</h1>
+  <p class="muted">Per customer, as of <span class="mono">{{ as_of }}</span>. The score comes only from the fixed rules below;
+    the written reason just restates those facts and never changes the score.</p>
+</div>
+
+<form method="get" action="/receivables/risk" class="chips">
+  <label class="small muted">As of <input type="date" name="as_of" value="{{ as_of }}"></label>
+  <button type="submit" class="btn">Update</button>
+</form>
+
+<section class="card">
+  <h2>Customers</h2>
+  <div class="table-wrap">
+  <table class="table compact">
+    <thead><tr><th>Customer</th><th>Level</th><th class="num">Score</th><th>Rules</th><th>Reason</th></tr></thead>
+    <tbody>
+      {% for r in results %}
+      <tr>
+        <td>{{ r.customer_name }} <span class="muted mono small">{{ r.customer_account }}</span></td>
+        <td><span class="tag tag-risk-{{ r.level }}">{{ r.level }}</span></td>
+        <td class="num mono">{{ r.score }}</td>
+        <td class="small rule-codes">{{ r.rule_codes | join(", ") or "—" }}</td>
+        <td class="small">{{ r.explanation }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section class="card">
+  <h2>How the score is built</h2>
+  <ul class="small">
+    <li>Oldest open invoice past due: 1-30 days {{ points.OLDEST_PAST_DUE_1_30 }}, 31-60 days {{ points.OLDEST_PAST_DUE_31_60 }},
+      61-90 days {{ points.OLDEST_PAST_DUE_61_90 }}, over 90 days {{ points.OLDEST_PAST_DUE_90_PLUS }} points.</li>
+    <li>Each open invoice 30 or more days past due: {{ points.INVOICES_30_PLUS }} points, up to 30.</li>
+    <li>Two or more posted partial payments in the last 90 days: {{ points.PARTIAL_PAY_PATTERN }} points.</li>
+    <li>Level: low under 25, medium 25-49, high 50 or more.</li>
+  </ul>
+</section>
+{% endblock %}

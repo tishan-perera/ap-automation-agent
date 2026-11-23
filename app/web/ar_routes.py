@@ -1,4 +1,4 @@
-"""Simple AR HTML pages: the payment review queue and the aging report.
+"""Simple AR HTML pages: the payment review queue, the aging report, and risk flags.
 
 Plain on purpose: the branded Receivables tab is built in Phase 15.
 """
@@ -16,6 +16,7 @@ from app.models_ar import BankPayment
 from app.routers.ar import payment_or_404
 from app.services.ar import payment_review
 from app.services.ar.aging import BUCKETS, build_aging, resolve_as_of
+from app.services.ar.risk import POINTS, assess_risk
 from app.services.review import ReviewError
 from app.web.routes import templates
 
@@ -103,3 +104,11 @@ def aging_page(request: Request, session: SessionDep, as_of: date | None = None)
     report = build_aging(session, resolve_as_of(as_of))
     context = {"report": report, "buckets": BUCKETS}
     return templates.TemplateResponse(request, "ar_aging.html", context)
+
+
+@router.get("/receivables/risk", response_class=HTMLResponse)
+def risk_page(request: Request, session: SessionDep, as_of: date | None = None):
+    """Read-only: computed on demand from the rules; nothing is saved."""
+    as_of = resolve_as_of(as_of)
+    context = {"results": assess_risk(session, as_of), "as_of": as_of, "points": POINTS}
+    return templates.TemplateResponse(request, "ar_risk.html", context)

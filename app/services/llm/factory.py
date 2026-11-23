@@ -13,6 +13,7 @@ from app.services.llm.mock import MockProvider
 from app.services.llm.openai_provider import OpenAIProvider
 from app.services.llm.payment_matcher import LLMPaymentMatcher, PaymentMatcher
 from app.services.llm.payment_matcher_mock import MockPaymentMatcher
+from app.services.llm.risk_explainer import LLMRiskExplainer, MockRiskExplainer
 
 logger = logging.getLogger(__name__)
 
@@ -59,3 +60,11 @@ def get_payment_matcher(session: Session | None = None) -> PaymentMatcher:
     if isinstance(provider, MockProvider):
         return MockPaymentMatcher()
     return LLMPaymentMatcher(provider)
+
+
+def get_risk_explainer(session: Session | None = None):
+    """Same provider choice as get_provider(): the mock template unless a real key is set."""
+    provider = get_provider(session)
+    if isinstance(provider, MockProvider):
+        return MockRiskExplainer()
+    return LLMRiskExplainer(provider)
