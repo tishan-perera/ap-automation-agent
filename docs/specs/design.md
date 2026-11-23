@@ -10,7 +10,7 @@ Accounts payable specialists spend much of the day on repetitive work: reading i
 
 This application automates that repetitive ~80%. An AP specialist still approves exceptions and can edit, reject, or approve each invoice. The app must never invent a missing amount. If a field is unreadable or absent, store null, add a flag, and send the invoice to the review queue.
 
-Accounts receivable is out of scope for v1.
+Accounts receivable was out of scope for the AP v1 build. It is now designed in [2026-11-21-ar-design.md](2026-11-21-ar-design.md).
 
 ## 2. Users and principles
 
@@ -34,7 +34,7 @@ In scope:
 6. Export approved invoices to a QuickBooks-style CSV.
 
 Out of scope for v1:
-- Accounts receivable
+- Accounts receivable (designed separately: see [2026-11-21-ar-design.md](2026-11-21-ar-design.md))
 - Live QuickBooks Online or any live books write
 - Email inbox or Gmail OAuth
 - User login / SSO (a single local demo user is enough)

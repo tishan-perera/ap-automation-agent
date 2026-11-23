@@ -8,6 +8,8 @@ An AI-assisted accounts payable (AP) web app. It automates the repetitive part o
 
 All data in this repository is synthetic. Every vendor, invoice, and purchase order is fictional.
 
+> **Roadmap: AP and AR.** This project is growing from AP-only into an AP and AR finance-ops agent. Accounts receivable (customer invoices, AI cash application, aging, risk flags, and collection-reminder drafts that are never emailed) is being added in phases. The design is in [docs/specs/2026-11-21-ar-design.md](docs/specs/2026-11-21-ar-design.md). **No AR feature works yet.** Everything below describes the AP features that are built and tested.
+
 ## The problem
 
 AP specialists spend much of the day on repetitive checks: reading invoice PDFs, checking whether an invoice was already entered, matching it to a purchase order and a receiving record, coding it to a general ledger (GL) account, and preparing it for the books.
@@ -148,7 +150,7 @@ A null where the ground truth is null counts as correct: refusing to guess a mis
 
 None of this is built today:
 
-- Accounts receivable (AR) as v2.
+- Accounts receivable (AR): designed in [docs/specs/2026-11-21-ar-design.md](docs/specs/2026-11-21-ar-design.md) and being built in phases. Not working yet.
 - Posting approved bills to a QuickBooks Online sandbox instead of a CSV file.
 - Email intake, so invoices sent to an AP inbox are ingested automatically.
 
