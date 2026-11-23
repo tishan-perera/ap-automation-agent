@@ -29,6 +29,8 @@ class Settings(BaseSettings):
 
     data_dir: str = "data"
     invoices_dir: str = "data/invoices"
+    ar_data_dir: str = "data/ar"
+    ar_invoices_dir: str = "data/ar/invoices"
 
 
 @lru_cache

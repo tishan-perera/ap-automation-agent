@@ -86,6 +86,12 @@ uvicorn app.main:app --reload
 
 Then open http://127.0.0.1:8000/queue.
 
+If you ran the app before the AR tables were added, your local `data/app.db` is missing them (the log shows `db_schema_outdated`). It only holds synthetic demo data and is gitignored, so delete it and restart:
+
+```bash
+rm data/app.db
+```
+
 ## Switching LLM providers
 
 The default provider is `mock`: an offline, deterministic parser for the synthetic invoice template. It needs no key and makes no network calls.

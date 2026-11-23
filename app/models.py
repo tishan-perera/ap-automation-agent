@@ -132,7 +132,10 @@ class AuditEvent(Base):
     __tablename__ = "audit_events"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
-    invoice_id: Mapped[str | None] = mapped_column(String(36), index=True)
+    invoice_id: Mapped[str | None] = mapped_column(String(36), index=True)  # AP invoices
+    # AR events set these instead (e.g. subject_type="ar_invoice"). AP events leave them null.
+    subject_type: Mapped[str | None] = mapped_column(String(30))
+    subject_id: Mapped[str | None] = mapped_column(String(36), index=True)
     at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     actor: Mapped[str] = mapped_column(String(100))
     action: Mapped[str] = mapped_column(String(50))
