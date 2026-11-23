@@ -151,3 +151,10 @@ textarea { font: inherit; padding: 7px 10px; border: 1px solid var(--border); bo
 .tag-risk-medium { background: var(--accent-soft); color: var(--accent); }
 .tag-risk-high { background: var(--bad-soft); color: var(--bad); }
 .rule-codes { font-family: ui-monospace, "SF Mono", Menlo, monospace; overflow-wrap: anywhere; min-width: 12ch; }
+
+/* Collection reminders. Amber marks only drafts that are waiting for a person. */
+.card-waiting { border-left: 4px solid #F59E0B; }
+.reminder-form { display: grid; gap: 8px; }
+.reminder-form label { display: flex; flex-direction: column; gap: 4px; }
+.reminder-form textarea { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13px; }
+.reminder-body { white-space: pre-wrap; font-size: 13px; background: var(--bg); padding: 12px; border-radius: 6px; }

@@ -1,4 +1,4 @@
-"""Simple AR HTML pages: the payment review queue, the aging report, and risk flags.
+"""Simple AR HTML pages: payment review, aging, risk flags, and reminder drafts.
 
 Plain on purpose: the branded Receivables tab is built in Phase 15.
 """
@@ -13,7 +13,8 @@ from sqlalchemy.orm import Session
 
 from app.db import get_session
 from app.models_ar import BankPayment
-from app.routers.ar import payment_or_404
+from app.routers.ar import payment_or_404, reminder_or_404
+from app.services import collections
 from app.services.ar import payment_review
 from app.services.ar.aging import BUCKETS, build_aging, resolve_as_of
 from app.services.ar.risk import INVOICES_30_PLUS_CAP, POINTS, assess_risk
@@ -117,3 +118,69 @@ def risk_page(request: Request, session: SessionDep, as_of: date | None = None):
         "invoices_30_plus_cap": INVOICES_30_PLUS_CAP,
     }
     return templates.TemplateResponse(request, "ar_risk.html", context)
+
+
+REMINDER_NOTICES = {
+    "generated": "Drafts created for customers with past-due invoices. Nothing was emailed.",
+    "approved": "Wording approved. Nothing was emailed; copy it into your own email if you want to send it.",
+    "rejected": "Draft rejected.",
+    "edited": "Draft updated. Review it, then approve or reject.",
+}
+
+
+def _reminders_page(request, session, notice=None, error=None, status_code=200):
+    reminders = collections.list_reminders(session)
+    groups = {s: [r for r in reminders if r.status == s] for s in collections.STATUSES}
+    context = {"groups": groups, "notice": REMINDER_NOTICES.get(notice or ""), "error": error,
+               "as_of": resolve_as_of()}  # fmt: skip
+    response = templates.TemplateResponse(
+        request, "ar_reminders.html", context, status_code=status_code
+    )
+    response.headers["HX-Replace-Url"] = "/receivables/reminders"
+    return response
+
+
+@router.get("/receivables/reminders", response_class=HTMLResponse)
+def reminders_page(request: Request, session: SessionDep, notice: str | None = None):
+    return _reminders_page(request, session, notice=notice)
+
+
+@router.post("/receivables/reminders/generate")
+def generate_reminders(
+    request: Request, session: SessionDep, as_of: Annotated[date | None, Form()] = None
+):
+    collections.generate_reminders(session, resolve_as_of(as_of))
+    return RedirectResponse(
+        "/receivables/reminders?notice=generated", status_code=status.HTTP_303_SEE_OTHER
+    )
+
+
+def _reminder_act(request, session, reminder_id, notice, action, *args):
+    reminder = reminder_or_404(session, reminder_id)
+    try:
+        action(session, reminder, *args)
+    except ReviewError as exc:
+        session.rollback()
+        return _reminders_page(request, session, error=exc.message, status_code=exc.status_code)
+    url = f"/receivables/reminders?notice={notice}"
+    return RedirectResponse(url, status_code=status.HTTP_303_SEE_OTHER)
+
+
+@router.post("/receivables/reminders/{reminder_id}/approve")
+def approve_reminder(request: Request, reminder_id: str, session: SessionDep):
+    return _reminder_act(request, session, reminder_id, "approved", collections.approve)
+
+
+@router.post("/receivables/reminders/{reminder_id}/reject")
+def reject_reminder(
+    request: Request, reminder_id: str, session: SessionDep, reason: Annotated[str, Form()] = ""
+):
+    return _reminder_act(request, session, reminder_id, "rejected", collections.reject, reason)
+
+
+@router.post("/receivables/reminders/{reminder_id}/edit")
+def edit_reminder(
+    request: Request, reminder_id: str, session: SessionDep,
+    subject: Annotated[str, Form()] = "", body: Annotated[str, Form()] = "",
+):  # fmt: skip
+    return _reminder_act(request, session, reminder_id, "edited", collections.edit, subject, body)

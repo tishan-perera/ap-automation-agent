@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Collection reminders · AP Automation Agent{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Collection reminders</h1>
+  <p class="muted">Drafts for customers with past-due invoices. They are <strong>never emailed</strong> by this app:
+    approving a draft only approves its wording. Copy the text into your own email if you want to use it.</p>
+</div>
+
+{% if notice %}<div class="banner banner-ok" role="status">{{ notice }}</div>{% endif %}
+{% if error %}<div class="banner banner-error" role="alert">{{ error }}</div>{% endif %}
+
+<form method="post" action="/receivables/reminders/generate" class="chips">
+  <label class="small muted">Past due as of <input type="date" name="as_of" value="{{ as_of }}"></label>
+  <button type="submit" class="btn">Draft reminders</button>
+</form>
+
+{% set titles = {"needs_review": "Waiting for review", "approved": "Approved (not emailed)", "rejected": "Rejected"} %}
+{% for key, reminders in groups.items() %}
+<section class="card {% if key == 'needs_review' and reminders %}card-waiting{% endif %}">
+  <h2>{{ titles[key] }} <span class="muted small">({{ reminders | length }})</span></h2>
+  {% if not reminders %}<p class="muted">None.</p>{% endif %}
+  {% for r in reminders %}
+  <div class="payment" id="{{ r.id }}">
+    <p>
+      <span class="strong">{{ r.customer_name }}</span>
+      <span class="tag">{{ r.tone }}</span>
+      <span class="status status-{{ 'needs_review' if key == 'needs_review' else key }}">{{ titles[key] | lower }}</span>
+      <span class="muted small mono">as of {{ r.as_of_date }}</span>
+      {% if r.approved_by %}<span class="muted small">· approved by {{ r.approved_by }}</span>{% endif %}
+    </p>
+    {% if key == "needs_review" %}
+    <form method="post" action="/receivables/reminders/{{ r.id }}/edit" class="reminder-form">
+      <label class="small muted">Subject <input name="subject" value="{{ r.subject }}" aria-label="Subject for {{ r.customer_name }}"></label>
+      <label class="small muted">Body <textarea name="body" rows="14" aria-label="Body for {{ r.customer_name }}">{{ r.body }}</textarea></label>
+      <div><button type="submit" class="btn">Save changes</button></div>
+    </form>
+    <div class="decision">
+      <form method="post" action="/receivables/reminders/{{ r.id }}/approve">
+        <button type="submit" class="btn btn-approve">Approve wording</button>
+      </form>
+      <form method="post" action="/receivables/reminders/{{ r.id }}/reject" class="reject-form">
+        <input name="reason" placeholder="Reason for rejecting (required)" aria-label="Reason for rejecting the {{ r.customer_name }} reminder">
+        <button type="submit" class="btn btn-reject">Reject</button>
+      </form>
+    </div>
+    {% else %}
+    <p class="small"><span class="muted">Subject:</span> {{ r.subject }}</p>
+    <pre class="reminder-body">{{ r.body }}</pre>
+    {% endif %}
+  </div>
+  {% endfor %}
+</section>
+{% endfor %}
+{% endblock %}

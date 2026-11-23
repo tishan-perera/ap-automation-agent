@@ -10,7 +10,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db import get_session
-from app.models_ar import ARInvoice, BankPayment
+from app.models_ar import ARInvoice, BankPayment, CollectionReminder
 from app.schemas_ar import (
     AgingReportOut,
     ARInvoiceDetail,
@@ -18,8 +18,11 @@ from app.schemas_ar import (
     BankPaymentOut,
     EditIn,
     RejectIn,
+    ReminderEditIn,
+    ReminderOut,
     RiskOut,
 )
+from app.services import collections
 from app.services.ar import payment_review
 from app.services.ar.aging import aging_csv, build_aging, resolve_as_of
 from app.services.ar.risk import assess_risk
@@ -134,3 +137,54 @@ def download_aging_csv(session: SessionDep, as_of: date | None = None) -> Respon
 @router.get("/risk", response_model=list[RiskOut])
 def get_risk(session: SessionDep, as_of: date | None = None):
     return assess_risk(session, resolve_as_of(as_of))
+
+
+# --- Collection reminder drafts (never emailed) ---
+
+
+def reminder_or_404(session: Session, reminder_id: str) -> CollectionReminder:
+    reminder = session.get(CollectionReminder, reminder_id)
+    if reminder is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Reminder not found.")
+    return reminder
+
+
+def _review_reminder(session: Session, reminder_id: str, action, *args) -> CollectionReminder:
+    reminder = reminder_or_404(session, reminder_id)
+    try:
+        action(session, reminder, *args)
+    except ReviewError as exc:
+        session.rollback()
+        raise HTTPException(exc.status_code, exc.message) from None
+    return reminder
+
+
+@router.post("/reminders/generate", response_model=list[ReminderOut])
+def generate_reminder_drafts(session: SessionDep, as_of: date | None = None):
+    """Draft reminders for customers with past-due invoices. Creates drafts only; sends nothing."""
+    return collections.generate_reminders(session, resolve_as_of(as_of))
+
+
+@router.get("/reminders", response_model=list[ReminderOut])
+def list_reminder_drafts(session: SessionDep, status: str | None = None):
+    return collections.list_reminders(session, status)
+
+
+@router.get("/reminders/{reminder_id}", response_model=ReminderOut)
+def get_reminder(reminder_id: str, session: SessionDep):
+    return reminder_or_404(session, reminder_id)
+
+
+@router.post("/reminders/{reminder_id}/approve", response_model=ReminderOut)
+def approve_reminder(reminder_id: str, session: SessionDep):
+    return _review_reminder(session, reminder_id, collections.approve)
+
+
+@router.post("/reminders/{reminder_id}/reject", response_model=ReminderOut)
+def reject_reminder(reminder_id: str, body: RejectIn, session: SessionDep):
+    return _review_reminder(session, reminder_id, collections.reject, body.reason)
+
+
+@router.post("/reminders/{reminder_id}/edit", response_model=ReminderOut)
+def edit_reminder(reminder_id: str, body: ReminderEditIn, session: SessionDep):
+    return _review_reminder(session, reminder_id, collections.edit, body.subject, body.body)

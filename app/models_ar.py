@@ -7,7 +7,7 @@ Money is Decimal; ids are UUID strings; timestamps are UTC.
 from datetime import date, datetime
 from decimal import Decimal
 
-from sqlalchemy import JSON, Date, DateTime, Float, ForeignKey, String, Text
+from sqlalchemy import JSON, CheckConstraint, Date, DateTime, Float, ForeignKey, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models import Base, Money, Quantity, new_id, utcnow
@@ -148,3 +148,35 @@ class PaymentApplication(Base):
     @property
     def invoice_number(self) -> str | None:
         return self.invoice.invoice_number if self.invoice else None
+
+
+class CollectionReminder(Base):
+    """A drafted collection reminder. It is never emailed, so there is no "sent" status;
+    the database refuses any status or tone outside the lists below."""
+
+    __tablename__ = "collection_reminders"
+    __table_args__ = (
+        CheckConstraint(
+            "status IN ('needs_review', 'approved', 'rejected')", name="reminder_status_allowed"
+        ),
+        CheckConstraint("tone IN ('polite', 'firm', 'final')", name="reminder_tone_allowed"),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    customer_id: Mapped[str] = mapped_column(ForeignKey("customers.id"), index=True)
+    as_of_date: Mapped[date] = mapped_column(Date)  # the date the past-due list was taken
+    tone: Mapped[str] = mapped_column(String(10))
+    subject: Mapped[str] = mapped_column(String(255))
+    body: Mapped[str] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(15), default="needs_review")
+    approved_by: Mapped[str | None] = mapped_column(String(100))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, onupdate=utcnow
+    )
+
+    customer: Mapped[Customer] = relationship()
+
+    @property
+    def customer_name(self) -> str:
+        return self.customer.name

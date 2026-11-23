@@ -7,9 +7,11 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.models import Invoice
+from app.services.ar.aging import resolve_as_of
 from app.services.ar.invoicing import create_invoices_from_orders
 from app.services.ar.seed import seed_ar_reference
 from app.services.cash_application import apply_payments
+from app.services.collections import generate_reminders
 from app.services.ingest import ingest_bytes
 from app.services.seed import seed_reference_data
 
@@ -32,16 +34,21 @@ def bootstrap_demo(session: Session, data_dir: Path | str, invoices_dir: Path | 
 
 def bootstrap_ar_demo(session: Session, ar_dir: Path | str, pdf_dir: Path | str) -> int:
     """Seed missing AR customers, orders, and bank payments; invoice any order without an
-    invoice; then match any payment not yet matched.
+    invoice; match any payment not yet matched; and draft collection reminders (never sent).
 
     Returns the number of AR invoices created. Existing rows are never changed.
     """
     seed_ar_reference(session, ar_dir)
     created = create_invoices_from_orders(session, pdf_dir)
     matched = apply_payments(session)
-    if created or matched:
+    drafted = generate_reminders(session, resolve_as_of())
+    if created or matched or drafted:
         logger.info(
             "demo_ar_ready",
-            extra={"ar_invoices_created": len(created), "payments_matched": len(matched)},
+            extra={
+                "ar_invoices_created": len(created),
+                "payments_matched": len(matched),
+                "reminders_drafted": len(drafted),
+            },
         )
     return len(created)

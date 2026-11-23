@@ -140,3 +140,26 @@ class RiskOut(BaseModel):
     level: str
     rule_codes: list[str]
     explanation: str
+
+
+class ReminderOut(BaseModel):
+    """A collection reminder draft. There is no "sent" status: nothing is emailed."""
+
+    model_config = {"from_attributes": True}
+
+    id: str
+    customer_id: str
+    customer_name: str
+    as_of_date: date
+    tone: str
+    subject: str
+    body: str
+    status: str
+    approved_by: str | None
+    created_at: datetime
+    updated_at: datetime
+
+
+class ReminderEditIn(BaseModel):
+    subject: str
+    body: str
