@@ -1,4 +1,4 @@
-<img src="docs/ap-repo-hero.svg" alt="AP Automation Agent. AI reads invoices, checks them against POs and receipts, and a person approves before export. Synthetic data only." width="100%">
+<img src="docs/ap-repo-hero.svg" alt="AP Automation Agent. AI helps with accounts payable and accounts receivable, and a person reviews exceptions before anything is exported. Synthetic data only." width="100%">
 
 # AP Automation Agent
 
@@ -116,8 +116,6 @@ Then open http://localhost:8000. On first start the app loads everything with th
 - 15 bank payments, matched with confident ones posted
 - reminder drafts
 
-(A rename of the repository to `ap-ar-automation-agent` is planned; until then, use the URL above.)
-
 The synthetic invoices fall due between September and November 2026. Aging, risk, reminders, and the Cash page use today's date unless you set `AR_REPORT_AS_OF`, so on the Cash tab try an as-of date such as `2026-10-15` to see the 30-day list filled in.
 
 ## Local development (optional)
@@ -228,6 +226,14 @@ None of this is built today:
 - Reversing a posted payment and voiding an AR invoice, both audited.
 - A real-provider eval with a key, reported next to the mock numbers.
 
+## Repository layout
+
+- `app/` — the FastAPI application, services, and web pages
+- `tests/` — 267 pytest tests using the mock provider or fakes
+- `data/` — synthetic vendors, customers, invoices, and payments (no real data)
+- `docs/` — design specs, eval reports, screenshots, and the demo script
+- `scripts/` — data generation and evaluation
+
 ## More
 
 - [Demo script](docs/demo-script.md): a 3-4 minute walkthrough
@@ -235,4 +241,4 @@ None of this is built today:
 - Eval reports: [extraction](docs/eval-report.md) and [cash application](docs/ar-matching-eval.md)
 - [Brand style guide](docs/brand/dashboard-style.md)
 
-MIT License. Built as a portfolio project.
+[MIT License](LICENSE). Built as a portfolio project.

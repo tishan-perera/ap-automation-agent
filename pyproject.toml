@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "ap-automation-agent"
 version = "0.1.0"
-description = "AI accounts payable assistant with a human in the loop (synthetic data only)."
+description = "AI accounts payable and accounts receivable assistant with human review (synthetic data only)."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
